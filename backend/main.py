@@ -1,6 +1,5 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-import psycopg2
 import os
 
 from urllib.parse import urlparse
@@ -19,11 +18,6 @@ app.add_middleware(
 )
 
 api = APIRouter(prefix="/api")
-
-@api.get("/db-check")
-def db_check():
-    url = os.getenv("DATABASE_URL")
-    return {"Host": urlparse(url).hostname}
 
 @api.get("/status")
 def status():
