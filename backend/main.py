@@ -32,14 +32,6 @@ app.add_middleware(
 
 api = APIRouter(prefix="/api")
 
-@api.post("/test-authorName")
-def save_name(data: NameIn, db: Session = Depends(get_db)):
-    register = Author(name=data.name)
-    db.add(register)
-    db.commit()
-    db.refresh(register)
-    return {"id": register.id, "name": register.name}
-
 @api.get("/status")
 def status():
     return {"status": "certíssimo"}
