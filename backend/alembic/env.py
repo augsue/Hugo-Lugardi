@@ -11,7 +11,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 load_dotenv()
 
-from database import Base
+from database import Base, DATABASE_URL
 from models import Book, Author, Character, User, Feedback
 
 # this is the Alembic Config object, which provides
@@ -66,7 +66,7 @@ def run_migrations_online() -> None:
 
     """
 
-    config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL"))
+    config.set_main_option("sqlalchemy.url", DATABASE_URL.replace("%", "%%"))
 
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
