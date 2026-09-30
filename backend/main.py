@@ -1,8 +1,21 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, Depends
 from fastapi.middleware.cors import CORSMiddleware
 import os
+from pydantic import BaseModel
+from sqlalchemy.orm import Session
 
-from urllib.parse import urlparse
+from database import SessionLocal
+from models import Author
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+class NameIn(BaseModel):
+    name: str
 
 app = FastAPI(
     docs_url="/api/docs",
@@ -18,6 +31,14 @@ app.add_middleware(
 )
 
 api = APIRouter(prefix="/api")
+
+@api.post("/test-authorName")
+def save_name(data: NameIn, db: Session = Depends(get_db)):
+    register = Author(name=data.name)
+    db.add(register)
+    db.commit()
+    db.refresh(register)
+    return {"id": register.id, "name": register.name}
 
 @api.get("/status")
 def status():
