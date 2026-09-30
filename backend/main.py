@@ -1,8 +1,21 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, Depends
 from fastapi.middleware.cors import CORSMiddleware
 import os
+from pydantic import BaseModel
+from sqlalchemy.orm import Session
 
-from urllib.parse import urlparse
+from database import SessionLocal
+from models import Author
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+class NameIn(BaseModel):
+    name: str
 
 app = FastAPI(
     docs_url="/api/docs",
