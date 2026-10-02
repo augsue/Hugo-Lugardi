@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import BookIcon from "@mui/icons-material/Book";
 import bookCover from "./assets/imgs/book-cover.jpeg";
-import "@fontsource/cinzel";
 import brasilia from "./assets/imgs/brasilia.png";
 
 export default function App() {

@@ -37,16 +37,16 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Cinzel", serif',
+    fontFamily: '"Georgia", "Garamond", serif',
     h1: {
-      fontFamily: '"Cinzel", serif',
+      fontFamily: '"Georgia", "Garamond", serif',
       fontSize: "48px",
       fontWeight: 700,
       lineHeight: 1.2,
       color: "#252422",
     },
     h2: {
-      fontFamily: '"Cinzel", serif',
+      fontFamily: '"Georgia", "Garamond", serif',
       fontSize: "36px",
       fontWeight: 700,
       lineHeight: 1.3,
