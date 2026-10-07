@@ -1,5 +1,6 @@
-import { Box, Container, Card } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import peoplebackground from "../assets/imgs/peoplebackground.jpg";
+import Carousel from "./Carousel"
 
 export default function Wiki() {
   return (
@@ -17,7 +18,13 @@ export default function Wiki() {
         position: "relative",
       }}
     >
-      <Container>
+      <Container
+        sx={{
+          height: "100%",
+          p: 0,
+          maxWidth: "85% !important"
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -38,48 +45,10 @@ export default function Wiki() {
             display: "flex",
             gap: 4,
             justifyContent: "space-between",
+            width: "100%",
           }}
         >
-          <Box
-            sx={{
-              fontSize: "15px",
-              lineHeight: 1.6,
-              mb: 3,
-              color: "#252422",
-            }}
-          >
-            Box 1
-          </Box>
-          <Box
-            sx={{
-              fontSize: "15px",
-              lineHeight: 1.6,
-              mb: 3,
-              color: "#252422",
-            }}
-          >
-            Box 2
-          </Box>
-          <Box
-            sx={{
-              fontSize: "15px",
-              lineHeight: 1.6,
-              mb: 3,
-              color: "#252422",
-            }}
-          >
-            Box 3
-          </Box>
-          <Box
-            sx={{
-              fontSize: "15px",
-              lineHeight: 1.6,
-              mb: 3,
-              color: "#252422",
-            }}
-          >
-            Box 4
-          </Box>
+          <Carousel />
         </Box>
       </Container>
     </Box>
