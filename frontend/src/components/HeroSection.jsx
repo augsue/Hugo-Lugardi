@@ -15,14 +15,13 @@ export default function HeroSection() {
         backgroundAttachment: "relative",
       }}
     >
-
       <Header />
 
       {/* AboutBookSection */}
 
       <Container
         maxWidth="lg"
-        sx={{ py: 6, display: "flex", alignItems: "center" }}
+        sx={{ py: 7, display: "flex", alignItems: "center" }}
       >
         <Box sx={{ display: "flex", gap: 6, alignItems: "stretch" }}>
           {/* Texto esquerda */}
@@ -31,8 +30,8 @@ export default function HeroSection() {
               flex: 1,
               padding: "48px 40px",
               backgroundColor: "transparent",
-              borderRadius: "8px",
-              border: (theme) => `2px solid ${theme.palette.primary.light}`,
+              borderRadius: "2px",
+              border: (theme) => `2px solid ${theme.palette.primary.main}`,
               boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
               height: "100%",
               display: "flex",
@@ -66,7 +65,7 @@ export default function HeroSection() {
               sx={{
                 fontSize: "16px",
                 lineHeight: 1.8,
-                color: (theme) => theme.palette.text.secondary,
+                color: (theme) => theme.palette.text.primary,
               }}
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
@@ -78,7 +77,11 @@ export default function HeroSection() {
               adipisicing elit. A facere quibusdam, numquam praesentium adipisci
               sed consecteturs officia, iste modi aliquam suscipit dicta
               voluptates eveniet. Perferendis modi praesentium delectus dolorem
-              a!
+              a! Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Quisquam voluptatibus, quod, quia, voluptates quibusdam quos
+              voluptatem quidem volupta. Quisquam, quod, quia, voluptates
+              quibusdam quos voluptatem quidem volupta. Quisquam, quod, quia,
+              voluptates quibusdam quos voluptatem quidem volupta.
             </Box>
           </Box>
 
@@ -92,10 +95,14 @@ export default function HeroSection() {
                 width: "100%",
                 aspectRatio: "3/4",
                 objectFit: "cover",
-                border: (theme) => `8px solid ${theme.palette.primary.light}`,
+                border: (theme) => `8px solid ${theme.palette.primary.main}`,
                 boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
                 borderRadius: "2px",
-                transform: "perspective(1000px) rotateY(-5deg)",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                "&:hover": {
+                  transform: "scale(1.005)",
+                  boxShadow: "0 8px 22px rgba(0, 0, 0, 0.4)",
+                },
               }}
             />
           </Box>

@@ -47,7 +47,7 @@ export default function WikiCarousel() {
           >
             <CardContent>
               <Typography variant="h5">Card 1</Typography>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2" color="#fff">
                 {/* TODO: Conectar ao backend aqui */}
                 Descrição do card 1
               </Typography>
@@ -65,7 +65,7 @@ export default function WikiCarousel() {
           >
             <CardContent>
               <Typography variant="h5">Card 2</Typography>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2" color="#fff">
                 {/* TODO: Conectar ao backend aqui */}
                 Descrição do card 2
               </Typography>
@@ -83,7 +83,7 @@ export default function WikiCarousel() {
           >
             <CardContent>
               <Typography variant="h5">Card 3</Typography>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2" color="#fff">
                 {/* TODO: Conectar ao backend aqui */}
                 Descrição do card 3
               </Typography>
@@ -101,7 +101,7 @@ export default function WikiCarousel() {
           >
             <CardContent>
               <Typography variant="h5">Card 4</Typography>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2" color="#fff">
                 {/* TODO: Conectar ao backend aqui */}
                 Descrição do card 4
               </Typography>
@@ -119,7 +119,7 @@ export default function WikiCarousel() {
           >
             <CardContent>
               <Typography variant="h5">Card 5</Typography>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2" color="#fff">
                 {/* TODO: Conectar ao backend aqui */}
                 Descrição do card 5
               </Typography>
@@ -137,7 +137,7 @@ export default function WikiCarousel() {
           >
             <CardContent>
               <Typography variant="h5">Card 6</Typography>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2" color="#fff">
                 {/* TODO: Conectar ao backend aqui */}
                 Descrição do card 6
               </Typography>

@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 import BookIcon from "@mui/icons-material/Book";
 
 export default function Header() {
-  const navItems = ["Autores", "Autores", "Feedback"];
+  const navItems = ["Autores", "Wiki", "Feedback"];
 
   return (
     <AppBar
       position="relative"
       sx={{
-        width: "90%",
-        left: "5%",
+        width: "98%",
+        left: "1%",
         borderRadius: 0,
         boxShadow: "none",
         backgroundColor: "transparent",
-        borderBottom: (theme) => `1px solid ${theme.palette.text.primary}`,
+        borderBottom: (theme) => `2px solid ${theme.palette.primary.main}`,
       }}
     >
       <Toolbar
@@ -37,13 +37,13 @@ export default function Header() {
           <BookIcon
             sx={{
               fontSize: "32px",
-              color: (theme) => theme.palette.primary.light,
+              color: (theme) => theme.palette.primary.main,
             }}
           />
         </Box>
         <Box
           sx={{
-            fontSize: "24px",
+            fontSize: "28px",
             fontWeight: 500,
             position: "absolute",
             left: "50%",

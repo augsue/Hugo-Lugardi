@@ -11,7 +11,7 @@ export default function Wiki() {
         backgroundImage: `url(${peoplebackground})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        py: 8,
+        py: 2,
         marginLeft: "calc(-50vw + 50%)",
         borderTop: "2px solid #1a1a1a",
         borderBottom: "2px solid #1a1a1a",

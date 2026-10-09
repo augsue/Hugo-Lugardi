@@ -3,26 +3,26 @@ import { createTheme } from "@mui/material/styles";
 export const theme = createTheme({
   palette: {
     primary: {
-      main: "#000145",
-      light: "#252422",
-      dark: "#252422",
-      contrastText: "#FFFCF2",
+      main: "#001845",
+      light: "#001233",
+      dark: "#001233",
+      contrastText: "#979DAC",
     },
     secondary: {
-      main: "#8B6F47",
-      light: "#CCC5B9",
-      dark: "#403D39",
-      contrastText: "#FFFCF2",
+      main: "#979DAC",
+      light: "#979DAC",
+      dark: "#7D8597",
+      contrastText: "#001233",
     },
     background: {
-      default: "#FFFCF2",
-      paper: "#F5F3F0",
+      default: "#979DAC",
+      paper: "#979DAC",
     },
     text: {
-      primary: "#252422",
-      secondary: "#403D39",
+      primary: "#001845",
+      secondary: "#33415C",
     },
-    divider: "#CCC5B9",
+    divider: "#5C677D",
     error: {
       main: "#D32F2F",
     },
@@ -30,7 +30,7 @@ export const theme = createTheme({
       main: "#F57C00",
     },
     info: {
-      main: "#03045E",
+      main: "#0466C8",
     },
     success: {
       main: "#388E3C",
@@ -43,45 +43,37 @@ export const theme = createTheme({
       fontSize: "48px",
       fontWeight: 700,
       lineHeight: 1.2,
-      color: "#252422",
     },
     h2: {
       fontFamily: '"Georgia", "Garamond", serif',
       fontSize: "36px",
       fontWeight: 700,
       lineHeight: 1.3,
-      color: "#252422",
     },
     h3: {
       fontSize: "28px",
       fontWeight: 600,
       lineHeight: 1.4,
-      color: "#252422",
     },
     h4: {
       fontSize: "24px",
       fontWeight: 600,
-      color: "#252422",
     },
     h5: {
       fontSize: "20px",
       fontWeight: 600,
-      color: "#252422",
     },
     h6: {
       fontSize: "16px",
       fontWeight: 600,
-      color: "#252422",
     },
     body1: {
       fontSize: "18px",
       lineHeight: 1.5,
-      color: "#403D39",
     },
     body2: {
       fontSize: "16px",
       lineHeight: 1.6,
-      color: "#403D39",
     },
     button: {
       textTransform: "none",
@@ -92,8 +84,8 @@ export const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: "#FFFCF2",
-          color: "#252422",
+          backgroundColor: "#001233",
+          color: "#979DAC",
           boxShadow: "0 2px 12px rgba(0, 0, 0, 0.08)",
         },
       },
@@ -108,22 +100,22 @@ export const theme = createTheme({
           fontWeight: 500,
         },
         contained: {
-          backgroundColor: "#03045E",
-          color: "#FFFCF2",
+          backgroundColor: "#0466C8",
+          color: "#FFFFFF",
           "&:hover": {
-            backgroundColor: "#252422",
+            backgroundColor: "#023E7D",
           },
         },
         outlined: {
-          borderColor: "#CCC5B9",
-          color: "#252422",
+          borderColor: "#5C677D",
+          color: "#001233",
           "&:hover": {
-            backgroundColor: "#F5F3F0",
-            borderColor: "#403D39",
+            backgroundColor: "#979DAC",
+            borderColor: "#33415C",
           },
         },
         text: {
-          color: "#252422",
+          color: "#001233",
           "&:hover": {
             backgroundColor: "transparent",
           },
@@ -133,9 +125,9 @@ export const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          backgroundColor: "#FFFCF2",
+          backgroundColor: "#979DAC",
           borderRadius: "8px",
-          border: "1px solid #CCC5B9",
+          border: "1px solid #5C677D",
           boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
         },
       },
@@ -145,13 +137,13 @@ export const theme = createTheme({
         root: {
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
-              borderColor: "#CCC5B9",
+              borderColor: "#5C677D",
             },
             "&:hover fieldset": {
-              borderColor: "#403D39",
+              borderColor: "#33415C",
             },
             "&.Mui-focused fieldset": {
-              borderColor: "#03045E",
+              borderColor: "#0466C8",
             },
           },
         },
