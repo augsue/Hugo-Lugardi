@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import BookIcon from "@mui/icons-material/Book";
+import CubeWhite from "../assets/cube_white.svg?react";
 
 export default function Header() {
   const navItems = ["Autores", "Wiki", "Feedback"];
@@ -34,12 +34,10 @@ export default function Header() {
             gap: 1,
           }}
         >
-          <BookIcon
-            sx={{
-              fontSize: "32px",
-              color: (theme) => theme.palette.primary.main,
-            }}
-          />
+          <div style={{ color: "#001233", height: "82px" }}>
+            <CubeWhite style={{ width: "100%", height: "100%" }}/>
+          </div>
+          
         </Box>
         <Box
           sx={{

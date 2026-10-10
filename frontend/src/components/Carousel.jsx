@@ -1,11 +1,18 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import { Box, Card, CardContent, Typography, IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useRef } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
+import WikiCard from "./card";
+import bible from "../assets/imgs/bible.jpg"
+import bsb from "../assets/imgs/bsb.jpg"
+import art from "../assets/imgs/art.jpg"
+import rcube from "../assets/imgs/RCube.jpg"
+import people from "../assets/imgs/people.png"
+import castle from "../assets/imgs/castel.jpg"
 
 export default function WikiCarousel() {
   const prevRef = useRef(null);
@@ -28,6 +35,7 @@ export default function WikiCarousel() {
         spaceBetween={30}
         slidesPerView={5}
         loop={true}
+        style={{ padding: "20px" }}
         onSwiper={(swiper) => {
           setTimeout(() => {
             swiper.params.navigation.prevEl = prevRef.current;
@@ -37,112 +45,64 @@ export default function WikiCarousel() {
           });
         }}
       >
-        <SwiperSlide>
-          <Card
-            sx={{
-              height: 400,
-              backgroundColor: "transparent",
-              border: "3px solid rgba(255,255,255,0.2)",
-            }}
-          >
-            <CardContent>
-              <Typography variant="h5">Card 1</Typography>
-              <Typography variant="body2" color="#fff">
-                {/* TODO: Conectar ao backend aqui */}
-                Descrição do card 1
-              </Typography>
-            </CardContent>
-          </Card>
+        <SwiperSlide style={{ height: "450px" }}>
+          <WikiCard
+            image= {bible}
+            title="Referências Bíblicas"
+            subtitle="Bases bíblicas para a escrita"
+            color="#979DAC"
+            href="/wiki/personagem"
+          />
         </SwiperSlide>
 
-        <SwiperSlide>
-          <Card
-            sx={{
-              height: 400,
-              backgroundColor: "transparent",
-              border: "3px solid rgba(255,255,255,0.2)",
-            }}
-          >
-            <CardContent>
-              <Typography variant="h5">Card 2</Typography>
-              <Typography variant="body2" color="#fff">
-                {/* TODO: Conectar ao backend aqui */}
-                Descrição do card 2
-              </Typography>
-            </CardContent>
-          </Card>
+        <SwiperSlide style={{ height: "450px" }}>
+          <WikiCard
+            image= {art}
+            title="Aventura"
+            subtitle="Explore o mundo espiritual"
+            color="#caf0f8"
+            href="/wiki/personagem"
+          />
         </SwiperSlide>
 
-        <SwiperSlide>
-          <Card
-            sx={{
-              height: 400,
-              backgroundColor: "transparent",
-              border: "3px solid rgba(255,255,255,0.2)",
-            }}
-          >
-            <CardContent>
-              <Typography variant="h5">Card 3</Typography>
-              <Typography variant="body2" color="#fff">
-                {/* TODO: Conectar ao backend aqui */}
-                Descrição do card 3
-              </Typography>
-            </CardContent>
-          </Card>
+        <SwiperSlide style={{ height: "450px" }}>
+          <WikiCard
+            image= {bsb}
+            title="Ambientação"
+            subtitle="Brasília - Águas Claras"
+            color="#1b2a41"
+            href="/wiki/personagem"
+          />
         </SwiperSlide>
 
-        <SwiperSlide>
-          <Card
-            sx={{
-              height: 400,
-              backgroundColor: "transparent",
-              border: "3px solid rgba(255,255,255,0.2)",
-            }}
-          >
-            <CardContent>
-              <Typography variant="h5">Card 4</Typography>
-              <Typography variant="body2" color="#fff">
-                {/* TODO: Conectar ao backend aqui */}
-                Descrição do card 4
-              </Typography>
-            </CardContent>
-          </Card>
+        <SwiperSlide style={{ height: "450px" }}>
+          <WikiCard
+            image={rcube}
+            title="Poderes"
+            subtitle="Definição dos poderes"
+            color="#979DAC"
+            href="/wiki/personagem"
+          />
         </SwiperSlide>
 
-        <SwiperSlide>
-          <Card
-            sx={{
-              height: 400,
-              backgroundColor: "transparent",
-              border: "3px solid rgba(255,255,255,0.2)",
-            }}
-          >
-            <CardContent>
-              <Typography variant="h5">Card 5</Typography>
-              <Typography variant="body2" color="#fff">
-                {/* TODO: Conectar ao backend aqui */}
-                Descrição do card 5
-              </Typography>
-            </CardContent>
-          </Card>
+        <SwiperSlide style={{ height: "450px" }}>
+          <WikiCard
+            image= {people}
+            title="Reino Espiritual"
+            subtitle="O Reino invisível"
+            color="#979DAC"
+            href="/wiki/personagem"
+          />
         </SwiperSlide>
 
-        <SwiperSlide>
-          <Card
-            sx={{
-              height: 400,
-              backgroundColor: "transparent",
-              border: "3px solid rgba(255,255,255,0.2)",
-            }}
-          >
-            <CardContent>
-              <Typography variant="h5">Card 6</Typography>
-              <Typography variant="body2" color="#fff">
-                {/* TODO: Conectar ao backend aqui */}
-                Descrição do card 6
-              </Typography>
-            </CardContent>
-          </Card>
+        <SwiperSlide style={{ height: "450px" }}>
+          <WikiCard
+            image={castle}
+            title="A Ordem Magoi"
+            subtitle="O esconderijo da ordem"
+            color="#252422"
+            href="/wiki/personagem"
+          />
         </SwiperSlide>
       </Swiper>
 

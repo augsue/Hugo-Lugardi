@@ -236,6 +236,7 @@ export default function AuthorsSection() {
         overflow: "hidden",
       }}
     >
+      
       <MainAuthorCard {...mainAuthor} />
 
       <Box
