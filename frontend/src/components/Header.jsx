@@ -1,5 +1,4 @@
 import { AppBar, Toolbar, Box, Button } from "@mui/material";
-import { Link } from "react-router-dom";
 import CubeWhite from "../assets/cube_white.svg?react";
 
 export default function Header() {

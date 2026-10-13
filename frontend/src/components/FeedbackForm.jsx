@@ -2,16 +2,36 @@ import { useState } from "react";
 import penandquill from "../assets/imgs/penandquill.png";
 import { Box, TextField, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { API_URL } from "../api";
 
 function FeedbackForm() {
   const theme = useTheme();
+  const [status, setStatus] = useState(""); // "", "enviando", "ok", "erro"
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    console.log(`Name: ${name}, Email: ${email}, Comment: ${comment}`);
+    setStatus("enviando");
+
+    try {
+      const response = await fetch(`${API_URL}/feedbacks`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message: comment }),
+      });
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      setName("");
+      setEmail("");
+      setComment("");
+      setStatus("ok");
+    } catch (err) {
+      console.error(err);
+      setStatus("erro");
+    }
   }
 
   const primaryField = {
@@ -35,7 +55,7 @@ function FeedbackForm() {
     >
       <Box
         sx={{
-          background: 'transparent',
+          background: "transparent",
           width: "66%",
           padding: "2rem",
           display: "flex",
@@ -58,7 +78,12 @@ function FeedbackForm() {
             rows={4}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            sx={{ ...primaryField, width: "100%", mb: "20px", borderRadius: "0" }}
+            sx={{
+              ...primaryField,
+              width: "100%",
+              mb: "20px",
+              borderRadius: "0",
+            }}
           />
           <Box sx={{ display: "flex" }}>
             <TextField
@@ -80,6 +105,8 @@ function FeedbackForm() {
             />
           </Box>
           <br />
+          {status === "ok" && <p>Comentário enviado!</p>}
+          {status === "erro" && <p>Não foi possível enviar. Tente de novo.</p>}
           <Button
             variant="contained"
             type="submit"
@@ -90,7 +117,6 @@ function FeedbackForm() {
           >
             Publicar Comentário
           </Button>
-          
         </form>
       </Box>
       <Box sx={{ width: "33%", background: "transparent" }} />
