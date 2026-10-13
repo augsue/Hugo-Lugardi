@@ -1,43 +1,56 @@
 import { useState } from "react";
-import blueBlackBoard from "../assets/imgs/blueBlackBoard.jpg";
+import penandquill from "../assets/imgs/penandquill.png";
 import { Box, TextField, Button } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 function FeedbackForm() {
+  const theme = useTheme();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
-    // aqui você pode enviar os dados para uma API ou realizar alguma outra ação com eles
     console.log(`Name: ${name}, Email: ${email}, Comment: ${comment}`);
   }
+
+  const primaryField = {
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": { borderColor: theme.palette.primary.main },
+      "&:hover fieldset": { borderColor: theme.palette.primary.main },
+      "&.Mui-focused fieldset": { borderColor: theme.palette.primary.main },
+    },
+    "& .MuiInputLabel-root": { color: theme.palette.primary.main },
+    "& .MuiInputLabel-root.Mui-focused": { color: theme.palette.primary.main },
+  };
 
   return (
     <Box
       sx={{
-        display: "flex",
-        backgroundImage: `url(${blueBlackBoard})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
         padding: "2rem",
+        backgroundImage: `url(${penandquill})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center -70px",
       }}
     >
       <Box
-        style={{
+        sx={{
+          background: 'transparent',
           width: "66%",
           padding: "2rem",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
+          border: `2px solid ${theme.palette.primary.main}`,
+          borderRadius: "8px",
         }}
       >
-        <Box style={{ marginBottom: 20 }}>
-          <h2 style={{ textAlign: "left", color: "#ffffff" }}>
+        <Box sx={{ marginBottom: "20px" }}>
+          <h2 style={{ textAlign: "left", color: theme.palette.primary.main }}>
             Deixe seu Feedback
           </h2>
         </Box>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{ width: "100%" }}>
           <TextField
             id="outlined-multiline-static"
             label="Comentário"
@@ -45,7 +58,7 @@ function FeedbackForm() {
             rows={4}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            style={{ width: "100%", marginBottom: 20, color: "#ffffff" }}
+            sx={{ ...primaryField, width: "100%", mb: "20px", borderRadius: "0" }}
           />
           <Box sx={{ display: "flex" }}>
             <TextField
@@ -54,7 +67,7 @@ function FeedbackForm() {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              style={{ width: "50%", marginRight: 20, color: "#ffffff" }}
+              sx={{ ...primaryField, width: "50%", mr: "20px" }}
             />
             <TextField
               id="outlined-email-address"
@@ -63,21 +76,24 @@ function FeedbackForm() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              style={{ width: "50%", color: "#ffffff" }}
+              sx={{ ...primaryField, width: "50%" }}
             />
           </Box>
           <br />
-          <Button variant="contained" color="primary" type="submit">
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{
+              backgroundColor: theme.palette.primary.main,
+              "&:hover": { backgroundColor: theme.palette.primary.main },
+            }}
+          >
             Publicar Comentário
           </Button>
+          
         </form>
       </Box>
-      <Box
-        sx={{
-          width: "33%",
-          background: "transparent",
-        }}
-      ></Box>
+      <Box sx={{ width: "33%", background: "transparent" }} />
     </Box>
   );
 }

@@ -34,10 +34,9 @@ export default function Header() {
             gap: 1,
           }}
         >
-          <div style={{ color: "#001233", height: "82px" }}>
+          <div style={{ color: (theme) => theme.palette.text.primary, height: "30px" }}>
             <CubeWhite style={{ width: "100%", height: "100%" }}/>
           </div>
-          
         </Box>
         <Box
           sx={{
@@ -55,8 +54,7 @@ export default function Header() {
           {navItems.map((item) => (
             <Button
               key={item}
-              component={Link}
-              to={`/${item.toLowerCase()}`}
+              href={`#${item.toLowerCase()}`}
               sx={{
                 color: (theme) => theme.palette.text.primary,
                 textTransform: "none",

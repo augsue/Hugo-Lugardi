@@ -18,12 +18,17 @@ export default function App() {
         <HeroSection />
 
         <ReviewSection />
+        <div id="autores">
+          <TeamSection />
+        </div>
 
-        <TeamSection />
+        <div id="wiki">
+          <Wiki />
+        </div>
 
-        <Wiki />
-        
-        <FeedbackForm />
+        <div id="feedback">
+          <FeedbackForm />
+        </div>
       </ThemeProvider>
     </BrowserRouter>
   );

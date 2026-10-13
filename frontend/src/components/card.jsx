@@ -14,7 +14,7 @@ export default function WikiCard({
   title,
   subtitle,
   emoji,
-  color = "#2e7d32", // cor hexadecimal do tema do card
+  color = "#979DAC", // cor hexadecimal do tema do card
   href,
   onClick,
   ...props

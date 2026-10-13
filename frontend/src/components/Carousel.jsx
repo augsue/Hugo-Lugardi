@@ -50,7 +50,6 @@ export default function WikiCarousel() {
             image= {bible}
             title="Referências Bíblicas"
             subtitle="Bases bíblicas para a escrita"
-            color="#979DAC"
             href="/wiki/personagem"
           />
         </SwiperSlide>
@@ -60,7 +59,6 @@ export default function WikiCarousel() {
             image= {art}
             title="Aventura"
             subtitle="Explore o mundo espiritual"
-            color="#caf0f8"
             href="/wiki/personagem"
           />
         </SwiperSlide>
@@ -70,7 +68,6 @@ export default function WikiCarousel() {
             image= {bsb}
             title="Ambientação"
             subtitle="Brasília - Águas Claras"
-            color="#1b2a41"
             href="/wiki/personagem"
           />
         </SwiperSlide>
@@ -80,7 +77,6 @@ export default function WikiCarousel() {
             image={rcube}
             title="Poderes"
             subtitle="Definição dos poderes"
-            color="#979DAC"
             href="/wiki/personagem"
           />
         </SwiperSlide>
@@ -90,7 +86,6 @@ export default function WikiCarousel() {
             image= {people}
             title="Reino Espiritual"
             subtitle="O Reino invisível"
-            color="#979DAC"
             href="/wiki/personagem"
           />
         </SwiperSlide>
@@ -100,7 +95,6 @@ export default function WikiCarousel() {
             image={castle}
             title="A Ordem Magoi"
             subtitle="O esconderijo da ordem"
-            color="#252422"
             href="/wiki/personagem"
           />
         </SwiperSlide>
