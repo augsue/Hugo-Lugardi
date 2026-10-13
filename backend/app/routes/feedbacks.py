@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.database import get_db
-from app.models import Feedback
+from database import get_db
+from models import Feedback
 from app.schemas import FeedbackCreate
 
 router = APIRouter(prefix="/api")
