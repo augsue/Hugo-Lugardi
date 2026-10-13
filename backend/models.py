@@ -49,8 +49,6 @@ class User(Base):
     password_hash = Column(String(300), nullable=False) #users.password_hash
     created_at = Column(DateTime(timezone=True), server_default=func.now()) #users.created_at
 
-    feedbacks = relationship("Feedback", back_populates="user") #users.feedbacks
-
 
 class Feedback(Base):
     __tablename__ = "feedbacks"
