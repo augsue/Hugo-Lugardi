@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   Card,
   CardActionArea,
@@ -116,7 +115,7 @@ export default function WikiCard({
               justifyContent: "space-between",
               bgcolor: alpha(color, 0.2),
               backdropFilter: "blur(8px)",
-              border: `1px solid ${alpha(color, 0.3)}`,
+              border: `1px solid ${alpha(color, 0.8)}`,
               borderRadius: 2,
               px: 2,
               py: 1.5,

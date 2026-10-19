@@ -1,6 +1,5 @@
-import Header from "./Header";
 import bookCover from "../assets/imgs/book-cover.jpeg";
-import brasilia from "../assets/imgs/brasilia.png";
+import brasilia from "../assets/imgs/bsbBridge.jpg";
 
 import { Box, Container } from "@mui/material";
 
@@ -8,15 +7,13 @@ export default function HeroSection() {
   return (
     <Box
       sx={{
-        minHeight: "90vh",
+        width: "100vw",
+        minHeight: "92vh",
         backgroundImage: `url(${brasilia})`,
         backgroundSize: "cover",
-        backgroundPosition: "center",
         backgroundAttachment: "relative",
       }}
     >
-      <Header />
-
       {/* AboutBookSection */}
 
       <Container
@@ -29,14 +26,18 @@ export default function HeroSection() {
             sx={{
               flex: 1,
               padding: "48px 40px",
-              backgroundColor: "transparent",
-              borderRadius: "2px",
-              border: (theme) => `2px solid ${theme.palette.primary.main}`,
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+              backgroundColor: "rgba(255, 255, 255, 0.12)",
+              backdropFilter: "blur(10px) saturate(110%)",
+              WebkitBackdropFilter: "blur(16px) saturate(110%)",
+              borderRadius: "1px",
+              border: "1px solid #0d1b2a",
+              boxShadow:
+                "0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.3)",
               height: "100%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              color: "#0d1b2a",
             }}
           >
             <Box
@@ -63,9 +64,9 @@ export default function HeroSection() {
             </Box>
             <Box
               sx={{
-                fontSize: "16px",
-                lineHeight: 1.8,
-                color: (theme) => theme.palette.text.primary,
+                fontSize: "17px",
+                lineHeight: 1.7,
+                color: "#0a0908",
               }}
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
@@ -98,11 +99,6 @@ export default function HeroSection() {
                 border: (theme) => `8px solid ${theme.palette.primary.main}`,
                 boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
                 borderRadius: "2px",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                "&:hover": {
-                  transform: "scale(1.005)",
-                  boxShadow: "0 8px 22px rgba(0, 0, 0, 0.4)",
-                },
               }}
             />
           </Box>

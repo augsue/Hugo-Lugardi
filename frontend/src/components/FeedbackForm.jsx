@@ -1,5 +1,5 @@
 import { useState } from "react";
-import penandquill from "../assets/imgs/penandquill.png";
+import penandquill from "../assets/imgs/gauze.png";
 import { Box, TextField, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { API_URL } from "../api";
@@ -47,22 +47,24 @@ function FeedbackForm() {
   return (
     <Box
       sx={{
-        padding: "2rem",
         backgroundImage: `url(${penandquill})`,
         backgroundSize: "cover",
         backgroundPosition: "center -70px",
-      }}
-    >
+        py: 8,
+        width: "100vw",
+        }}
+      >
       <Box
         sx={{
+          maxWidth: "1200px",
           background: "transparent",
-          width: "66%",
           padding: "2rem",
+    margin: "0 auto",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
           border: `2px solid ${theme.palette.primary.main}`,
-          borderRadius: "8px",
+          borderRadius: "2px",
         }}
       >
         <Box sx={{ marginBottom: "20px" }}>
@@ -85,7 +87,7 @@ function FeedbackForm() {
               borderRadius: "0",
             }}
           />
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <TextField
               id="outlined-required"
               label="Nome"
@@ -103,23 +105,25 @@ function FeedbackForm() {
               onChange={(e) => setEmail(e.target.value)}
               sx={{ ...primaryField, width: "50%" }}
             />
-          </Box>
-          <br />
-          {status === "ok" && <p>Comentário enviado!</p>}
-          {status === "erro" && <p>Não foi possível enviar. Tente de novo.</p>}
-          <Button
+            <Button
             variant="contained"
             type="submit"
             sx={{
               backgroundColor: theme.palette.primary.main,
               "&:hover": { backgroundColor: theme.palette.primary.main },
+              marginLeft: "20px",
+              height: "56px",
+              width: "90px",
             }}
           >
-            Publicar Comentário
+            Enviar
           </Button>
+          </Box>
+          <br />
+          {status === "ok" && <p>Comentário enviado!</p>}
+          {status === "erro" && <p>Não foi possível enviar. Tente de novo.</p>}
         </form>
       </Box>
-      <Box sx={{ width: "33%", background: "transparent" }} />
     </Box>
   );
 }

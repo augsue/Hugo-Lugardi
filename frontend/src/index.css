@@ -1,7 +1,6 @@
 html {
   scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scroll-padding-top: 48px; /* altura da navbar */
 }
 
 html::-webkit-scrollbar {

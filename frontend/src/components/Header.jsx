@@ -1,68 +1,80 @@
 import { AppBar, Toolbar, Box, Button } from "@mui/material";
 import CubeWhite from "../assets/cube_white.svg?react";
 
+const NAV_HEIGHT = "48px";
+
 export default function Header() {
-  const navItems = ["Autores", "Wiki", "Feedback"];
+  const navItems = ["Home", "Autores", "Wiki", "Feedback"];
 
   return (
     <AppBar
-      position="relative"
+      position="fixed"
       sx={{
-        width: "98%",
-        left: "1%",
+        top: 0,
+        left: 0,
+        right: 0,
+        margin: 0,
+        width: "100%",
+        height: NAV_HEIGHT,
+        zIndex: (theme) => theme.zIndex.appBar,
         borderRadius: 0,
-        boxShadow: "none",
-        backgroundColor: "transparent",
-        borderBottom: (theme) => `2px solid ${theme.palette.primary.main}`,
+        backgroundImage:
+          "linear-gradient(to right, #0a0908 0%, #161a1d 50%, #0a0908 100%)",
+        backgroundSize: "auto, auto",
+        backgroundRepeat: "no-repeat, repeat",
+        borderBottom: "2px solid #000000",
       }}
     >
       <Toolbar
+        disableGutters
         sx={{
-          minHeight: "70px",
+          height: NAV_HEIGHT,
+          minHeight: `${NAV_HEIGHT} !important`,
           padding: "0 24px",
           justifyContent: "space-between",
-          color: "transparent",
         }}
       >
         <Box
           sx={{
-            fontSize: "28px",
-            fontWeight: "bold",
             display: "flex",
             alignItems: "center",
-            gap: 1,
+            gap: "12px",
+            marginLeft: "50px",
           }}
         >
-          <div style={{ color: (theme) => theme.palette.text.primary, height: "30px" }}>
-            <CubeWhite style={{ width: "100%", height: "100%" }}/>
-          </div>
+          <Box sx={{ display: "flex", alignItems: "center", height: "26px" }}>
+            <CubeWhite
+              style={{
+                width: "auto",
+                height: "100%",
+                filter: "brightness(0) invert(1)",
+              }}
+            />
+          </Box>
+          <Box
+            sx={{
+              fontSize: "24px",
+              fontWeight: 500,
+              color: "#e8e4dc",
+              letterSpacing: "0.04em",
+            }}
+          >
+            Hugo Lugardi
+          </Box>
         </Box>
-        <Box
-          sx={{
-            fontSize: "28px",
-            fontWeight: 500,
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-            color: (theme) => theme.palette.text.primary,
-          }}
-        >
-          Hugo Lugardi
-        </Box>
-        <Box sx={{ display: "flex", gap: "32px" }}>
+
+        <Box sx={{ display: "flex", gap: "32px", marginRight: "50px" }}>
           {navItems.map((item) => (
             <Button
               key={item}
               href={`#${item.toLowerCase()}`}
               sx={{
-                color: (theme) => theme.palette.text.primary,
+                color: "#e8e4dc",
                 textTransform: "none",
-                fontSize: "18px",
+                fontSize: "16px",
                 fontWeight: 500,
                 position: "relative",
-                "&:hover": {
-                  backgroundColor: "transparent",
-                },
+                "&:hover": { backgroundColor: "transparent" },
                 "&::after": {
                   content: '""',
                   position: "absolute",
@@ -70,12 +82,10 @@ export default function Header() {
                   left: 0,
                   width: "0%",
                   height: "2px",
-                  backgroundColor: (theme) => theme.palette.primary.main,
+                  backgroundColor: "#e8e4dc",
                   transition: "width 0.3s ease",
                 },
-                "&:hover::after": {
-                  width: "100%",
-                },
+                "&:hover::after": { width: "100%" },
               }}
             >
               {item}

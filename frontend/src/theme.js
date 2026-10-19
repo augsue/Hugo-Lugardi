@@ -20,7 +20,7 @@ export const theme = createTheme({
     },
     text: {
       primary: "#0d1b2a",
-      secondary: "#33415C",
+      secondary: "#e8e4dc",
     },
     divider: "#5C677D",
     error: {
@@ -37,15 +37,15 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Georgia", "Garamond", serif',
+    fontFamily: '"Garamond", serif',
     h1: {
-      fontFamily: '"Georgia", "Garamond", serif',
+      fontFamily: '"Garamond", serif',
       fontSize: "48px",
       fontWeight: 700,
       lineHeight: 1.2,
     },
     h2: {
-      fontFamily: '"Georgia", "Garamond", serif',
+      fontFamily: '"Garamond", serif',
       fontSize: "36px",
       fontWeight: 700,
       lineHeight: 1.3,

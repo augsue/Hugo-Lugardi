@@ -3,21 +3,14 @@ import { Navigation } from "swiper/modules";
 import { Box, IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { useRef } from "react";
+import { useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import WikiCard from "./card";
-import bible from "../assets/imgs/bible.jpg"
-import bsb from "../assets/imgs/bsb.jpg"
-import art from "../assets/imgs/art.jpg"
-import rcube from "../assets/imgs/RCube.jpg"
-import people from "../assets/imgs/people.png"
-import castle from "../assets/imgs/castel.jpg"
 
-export default function WikiCarousel() {
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
-  const swiperRef = useRef(null);
+export default function WikiCarousel({ itens = [] }) {
+  const [prevEl, setPrevEl] = useState(null);
+  const [nextEl, setNextEl] = useState(null);
 
   return (
     <Box
@@ -27,81 +20,30 @@ export default function WikiCarousel() {
         mx: "auto",
         py: 4,
         position: "relative",
+        clipPath: "inset(-60px -100px -60px -100px)", // corta só nas laterais, topo e base liberados
       }}
     >
       <Swiper
-        ref={swiperRef}
         modules={[Navigation]}
         spaceBetween={30}
         slidesPerView={5}
         loop={true}
-        style={{ padding: "20px" }}
-        onSwiper={(swiper) => {
-          setTimeout(() => {
-            swiper.params.navigation.prevEl = prevRef.current;
-            swiper.params.navigation.nextEl = nextRef.current;
-            swiper.navigation.init();
-            swiper.navigation.update();
-          });
-        }}
+        navigation={{ prevEl, nextEl }}
       >
-        <SwiperSlide style={{ height: "450px" }}>
-          <WikiCard
-            image= {bible}
-            title="Referências Bíblicas"
-            subtitle="Bases bíblicas para a escrita"
-            href="/wiki/personagem"
-          />
-        </SwiperSlide>
-
-        <SwiperSlide style={{ height: "450px" }}>
-          <WikiCard
-            image= {art}
-            title="Aventura"
-            subtitle="Explore o mundo espiritual"
-            href="/wiki/personagem"
-          />
-        </SwiperSlide>
-
-        <SwiperSlide style={{ height: "450px" }}>
-          <WikiCard
-            image= {bsb}
-            title="Ambientação"
-            subtitle="Brasília - Águas Claras"
-            href="/wiki/personagem"
-          />
-        </SwiperSlide>
-
-        <SwiperSlide style={{ height: "450px" }}>
-          <WikiCard
-            image={rcube}
-            title="Poderes"
-            subtitle="Definição dos poderes"
-            href="/wiki/personagem"
-          />
-        </SwiperSlide>
-
-        <SwiperSlide style={{ height: "450px" }}>
-          <WikiCard
-            image= {people}
-            title="Reino Espiritual"
-            subtitle="O Reino invisível"
-            href="/wiki/personagem"
-          />
-        </SwiperSlide>
-
-        <SwiperSlide style={{ height: "450px" }}>
-          <WikiCard
-            image={castle}
-            title="A Ordem Magoi"
-            subtitle="O esconderijo da ordem"
-            href="/wiki/personagem"
-          />
-        </SwiperSlide>
+        {itens.map((item) => (
+          <SwiperSlide key={item.title} style={{ height: "550px" }}>
+            <WikiCard
+              image={item.image}
+              title={item.title}
+              subtitle={item.subtitle}
+              href={item.href}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
 
       <IconButton
-        ref={prevRef}
+        ref={setPrevEl}
         sx={{
           position: "absolute",
           left: -80,
@@ -114,7 +56,7 @@ export default function WikiCarousel() {
         <ChevronLeftIcon sx={{ fontSize: 60 }} />
       </IconButton>
       <IconButton
-        ref={nextRef}
+        ref={setNextEl}
         sx={{
           position: "absolute",
           right: -80,
