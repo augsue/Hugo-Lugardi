@@ -78,12 +78,12 @@ export default function Header() {
                 "&::after": {
                   content: '""',
                   position: "absolute",
-                  bottom: "-8px",
+                  bottom: "0",
                   left: 0,
                   width: "0%",
-                  height: "2px",
+                  height: "1.2px",
                   backgroundColor: "#e8e4dc",
-                  transition: "width 0.3s ease",
+                  transition: "width 0.4s ease",
                 },
                 "&:hover::after": { width: "100%" },
               }}

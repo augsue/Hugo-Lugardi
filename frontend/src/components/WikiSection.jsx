@@ -22,7 +22,8 @@ export default function WikiSection() {
     <Box
       sx={{
         width: "100vw",
-        minHeight: "92vh",
+        height: "90vh",
+        overflow: "hidden",
         py: 6,
         position: "relative",
         background: "linear-gradient(to right, #050505 0%, #0f0f0f 50%, #050505 100%)",

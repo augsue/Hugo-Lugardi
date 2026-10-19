@@ -8,7 +8,7 @@ export default function HeroSection() {
     <Box
       sx={{
         width: "100vw",
-        minHeight: "92vh",
+        minHeight: "97vh",
         backgroundImage: `url(${brasilia})`,
         backgroundSize: "cover",
         backgroundAttachment: "relative",
@@ -18,7 +18,7 @@ export default function HeroSection() {
 
       <Container
         maxWidth="lg"
-        sx={{ py: 7, display: "flex", alignItems: "center" }}
+        sx={{ py: 12, display: "flex", alignItems: "center" }}
       >
         <Box sx={{ display: "flex", gap: 6, alignItems: "stretch" }}>
           {/* Texto esquerda */}

@@ -20,7 +20,6 @@ export default function Home() {
         flexDirection: "column",
       }}
     >
-      <Box sx={{ height: "48px" }}></Box>
       <Header />
       
       <div id="home">

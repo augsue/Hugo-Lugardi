@@ -31,7 +31,7 @@ export default function WikiCarousel({ itens = [] }) {
         navigation={{ prevEl, nextEl }}
       >
         {itens.map((item) => (
-          <SwiperSlide key={item.title} style={{ height: "550px" }}>
+          <SwiperSlide key={item.title} style={{ height: "500px" }}>
             <WikiCard
               image={item.image}
               title={item.title}
@@ -47,7 +47,7 @@ export default function WikiCarousel({ itens = [] }) {
         sx={{
           position: "absolute",
           left: -80,
-          top: "50%",
+          top: "40%",
           transform: "translateY(-50%)",
           color: "#fff",
           zIndex: 10,
@@ -60,7 +60,7 @@ export default function WikiCarousel({ itens = [] }) {
         sx={{
           position: "absolute",
           right: -80,
-          top: "50%",
+          top: "40%",
           transform: "translateY(-50%)",
           color: "#fff",
           zIndex: 10,
