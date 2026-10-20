@@ -117,6 +117,8 @@ export default function ReviewSection({ reviews = MOCK_REVIEWS }) {
         py: 6,
         position: "relative",
         backgroundImage: `url(${blackGauze})`,
+        borderTop: "2px solid #000000",
+        borderBottom: "2px solid #000000",
       }}
     >
       {/* Container (MUI): limita a largura do conteúdo e centraliza */}
@@ -141,7 +143,8 @@ export default function ReviewSection({ reviews = MOCK_REVIEWS }) {
           />
           <Typography
             sx={{
-              fontSize: { xs: "24px", md: "32px" },
+              fontSize: "45px",
+              fontFamily: "Eloquence",
               color: "#fff",
               fontWeight: 400,
               letterSpacing: "0.05em",

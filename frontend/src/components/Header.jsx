@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Box, Button } from "@mui/material";
+import { AppBar, Toolbar, Box, Button, Typography } from "@mui/material";
 import CubeWhite from "../assets/cube_white.svg?react";
 
 const NAV_HEIGHT = "48px";
@@ -46,21 +46,20 @@ export default function Header() {
             <CubeWhite
               style={{
                 width: "auto",
-                height: "100%",
+                height: "40px",
                 filter: "brightness(0) invert(1)",
               }}
             />
           </Box>
-          <Box
+          <Typography
             sx={{
-              fontSize: "24px",
-              fontWeight: 500,
+              fontSize: "30px",
+              fontFamily: "Eloquence",
               color: "#e8e4dc",
-              letterSpacing: "0.04em",
             }}
           >
             Hugo Lugardi
-          </Box>
+          </Typography>
         </Box>
 
         <Box sx={{ display: "flex", gap: "32px", marginRight: "50px" }}>
@@ -71,14 +70,15 @@ export default function Header() {
               sx={{
                 color: "#e8e4dc",
                 textTransform: "none",
-                fontSize: "16px",
+                fontSize: "20px",
+                fontFamily: "Eloquence",
                 fontWeight: 500,
                 position: "relative",
                 "&:hover": { backgroundColor: "transparent" },
                 "&::after": {
                   content: '""',
                   position: "absolute",
-                  bottom: "0",
+                  bottom: "2px",
                   left: 0,
                   width: "0%",
                   height: "1.2px",

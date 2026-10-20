@@ -106,6 +106,7 @@ export default function AuthorsSection() {
         sx={{
           textAlign: "center",
           fontSize: "clamp(2rem, 4vw, 3.6rem)",
+          fontFamily: "Eloquence",
           fontWeight: 700,
           textTransform: "uppercase",
           mb: "2%",
