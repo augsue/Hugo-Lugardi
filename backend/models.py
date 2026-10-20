@@ -49,17 +49,14 @@ class User(Base):
     password_hash = Column(String(300), nullable=False) #users.password_hash
     created_at = Column(DateTime(timezone=True), server_default=func.now()) #users.created_at
 
-    feedbacks = relationship("Feedback", back_populates="user") #users.feedbacks
-
 
 class Feedback(Base):
     __tablename__ = "feedbacks"
 
-    id = Column(Integer, primary_key=True, index=True) #feedbacks.id
-    message = Column(Text, nullable=False) #feedbacks.message
-    approved = Column(Boolean, default=False) #feedbacks.approved
-    created_at = Column(DateTime(timezone=True),server_default=func.now()) #feedbacks.created_at
-
-    user_id = Column(Integer, ForeignKey("users.id")) #feedbacks.user_id
-    user = relationship("User", back_populates="feedbacks") #feedbacks.user
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(150), nullable=False)
+    email = Column(String(200), nullable=False)
+    message = Column(Text, nullable=False)
+    fixed = Column(Boolean, default=False, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
 

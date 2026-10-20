@@ -1,35 +1,36 @@
-import {
-  Button,
-  TextField,
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  CssBaseline,
-} from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, GlobalStyles, CssBaseline } from "@mui/material";
 import { theme } from "./theme";
+import { BrowserRouter, Routes } from "react-router-dom";
+import { Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Wiki from "./pages/Wiki";
+import fontFile from "./assets/fonts/CarlBrown.woff2"; // Ajuste para o caminho correto da fonte
 
-// const API_URL = import.meta.env.VITE_API_URL;
+const fontStyles = (
+  <GlobalStyles
+    styles={{
+      "@font-face": {
+        fontFamily: "Eloquence",
+        src: `url(${fontFile}) format('woff2')`,
+        fontWeight: 400,
+        fontStyle: "normal",
+        fontDisplay: "swap",
+      },
+    }}
+  />
+);
 
-function App() {
+export default function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline/>
-      <Box sx={{ p: 2, display: "flex", gap: 2 }}>
-        <TextField label="Nome" variant="outlined" />
-        <Button variant="contained" size="large">
-          Enviar
-        </Button>
-        <Card sx={{ maxWidth: 300 }}>
-          <CardContent>
-            <Typography variant="h5">Card</Typography>
-            <Typography color="text.secondary">Conteudo</Typography>
-          </CardContent>
-        </Card>
-      </Box>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        {fontStyles}
+        <CssBaseline />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/wiki/:slug" element={<Wiki />} />
+        </Routes>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
-
-export default App;

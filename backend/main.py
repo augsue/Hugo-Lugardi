@@ -6,6 +6,8 @@ from sqlalchemy.orm import Session
 
 from database import SessionLocal
 from models import Author
+from app.routes.feedbacks import router as feedbacks_router
+
 
 def get_db():
     db = SessionLocal()
@@ -21,6 +23,9 @@ app = FastAPI(
     docs_url="/api/docs",
     openapi_url='/api/openapi.json'
 )
+
+app.include_router(feedbacks_router)
+
 
 app.add_middleware(
     CORSMiddleware,
