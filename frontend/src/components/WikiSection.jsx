@@ -9,12 +9,42 @@ import people from "../assets/imgs/people.png";
 import castle from "../assets/imgs/castel.jpg";
 
 const itens = [
-  { image: bible, title: "Referências Bíblicas", subtitle: "Bases bíblicas para a escrita", href: "/wiki/referencias-biblicas" },
-  { image: art, title: "Aventura", subtitle: "Explore o mundo espiritual", href: "/wiki/aventura" },
-  { image: bsb, title: "Ambientação", subtitle: "Brasília - Águas Claras", href: "/wiki/ambientacao" },
-  { image: rcube, title: "Poderes", subtitle: "Definição dos poderes", href: "/wiki/poderes" },
-  { image: people, title: "Reino Espiritual", subtitle: "O Reino invisível", href: "/wiki/reino-espiritual" },
-  { image: castle, title: "A Ordem Magoi", subtitle: "O esconderijo da ordem", href: "/wiki/a-ordem-magoi" },
+  {
+    image: bible,
+    title: "Referências Bíblicas",
+    subtitle: "Bases bíblicas para a escrita",
+    href: "/wiki/referencias-biblicas",
+  },
+  {
+    image: art,
+    title: "Aventura",
+    subtitle: "Explore o mundo espiritual",
+    href: "/wiki/aventura",
+  },
+  {
+    image: bsb,
+    title: "Ambientação",
+    subtitle: "Brasília - Águas Claras",
+    href: "/wiki/ambientacao",
+  },
+  {
+    image: rcube,
+    title: "Poderes",
+    subtitle: "Definição dos poderes",
+    href: "/wiki/poderes",
+  },
+  {
+    image: people,
+    title: "Reino Espiritual",
+    subtitle: "O Reino invisível",
+    href: "/wiki/reino-espiritual",
+  },
+  {
+    image: castle,
+    title: "A Ordem Magoi",
+    subtitle: "O esconderijo da ordem",
+    href: "/wiki/a-ordem-magoi",
+  },
 ];
 
 export default function WikiSection() {
@@ -26,7 +56,8 @@ export default function WikiSection() {
         overflow: "hidden",
         py: 6,
         position: "relative",
-        background: "linear-gradient(to right, #050505 0%, #0f0f0f 50%, #050505 100%)",
+        background:
+          "linear-gradient(to right, #050505 0%, #0f0f0f 50%, #050505 100%)",
         "&::before": {
           content: '""',
           position: "absolute",
@@ -39,12 +70,30 @@ export default function WikiSection() {
       }}
     >
       <Container sx={{ height: "100%", p: 0, maxWidth: "85% !important" }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 6, opacity: 0.3 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            mb: 6,
+            opacity: 0.3,
+          }}
+        >
           <Box sx={{ flex: 1, height: "1px", backgroundColor: "#FFF" }} />
-          <Box sx={{ fontSize: "20px", color: "#FFF", fontWeight: 500 }}>Wiki</Box>
+          <Box sx={{ fontSize: "20px", color: "#FFF", fontWeight: 500 }}>
+            Wiki
+          </Box>
           <Box sx={{ flex: 1, height: "1px", backgroundColor: "#FFF" }} />
         </Box>
-        <Box sx={{ display: "flex", gap: 4, justifyContent: "space-between", width: "100%", height: "100%" }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 4,
+            justifyContent: "space-between",
+            width: "100%",
+            height: "100%",
+          }}
+        >
           <Carousel itens={itens} />
         </Box>
       </Container>
