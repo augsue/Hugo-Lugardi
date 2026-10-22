@@ -7,10 +7,30 @@ import Gabs from "../assets/imgs/Gabs.jpg";
 import Davi from "../assets/imgs/Davi.jpg";
 
 const authors = [
-  { name: "Gláucio Augsuê", role: "Escritor", photo: Glaucio, text: "Autor principal do livro, criador deste mundo." },
-  { name: "Lucas Augsuê", role: "Revisor técnico", photo: Lucas, text: "Lia cada capítulo e revisava os detalhes." },
-  { name: "Gabriela Gerusa", role: "Coordenadora editorial", photo: Gabs, text: "Corrigia erros e avaliava os personagens." },
-  { name: "Davi Augsuê", role: "Diretor de mundo", photo: Davi, text: "Ajudou a desenvolver o mundo e seus poderes." },
+  {
+    name: "Gláucio Augsuê",
+    role: "Escritor",
+    photo: Glaucio,
+    text: "Autor principal do livro, criador deste mundo.",
+  },
+  {
+    name: "Lucas Augsuê",
+    role: "Revisor técnico",
+    photo: Lucas,
+    text: "Lia cada capítulo e revisava os detalhes.",
+  },
+  {
+    name: "Gabriela Gerusa",
+    role: "Coordenadora editorial",
+    photo: Gabs,
+    text: "Corrigia erros e avaliava os personagens.",
+  },
+  {
+    name: "Davi Augsuê",
+    role: "Diretor de mundo",
+    photo: Davi,
+    text: "Ajudou a desenvolver o mundo e seus poderes.",
+  },
 ];
 
 function AuthorCard({ name, role, photo, text }) {
@@ -33,7 +53,8 @@ function AuthorCard({ name, role, photo, text }) {
           content: '""',
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(to top, rgba(0,0,0,0.85) 20%, rgba(0,0,0,0.25) 70%, rgba(0,0,0,0.1))",
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.85) 20%, rgba(0,0,0,0.25) 70%, rgba(0,0,0,0.1))",
         },
       }}
     >
@@ -88,7 +109,7 @@ export default function AuthorsSection() {
       sx={{
         position: "relative",
         width: "100vw",
-        height: "calc((100vh - var(--navbar-height, 64px)) * 0.92)",
+        height: "90vh",
         backgroundColor: "#f1f1f1",
         backgroundImage: `url(${gauze})`,
         backgroundSize: "cover",
@@ -101,20 +122,27 @@ export default function AuthorsSection() {
         overflow: "hidden",
       }}
     >
-      <Typography
-        component="h2"
+      <Box
         sx={{
           textAlign: "center",
-          fontSize: "clamp(2rem, 4vw, 3.6rem)",
-          fontFamily: "Eloquence",
-          fontWeight: 700,
-          textTransform: "uppercase",
-          mb: "2%",
+          gap: 2,
+          mb: 6,
         }}
       >
-        Autores
-      </Typography>
 
+        <Typography
+          component="h2"
+          sx={{
+            textAlign: "center",
+            fontSize: "clamp(2rem, 4vw, 3.6rem)",
+            fontFamily: "Eloquence",
+            fontWeight: 700,
+            textTransform: "uppercase",
+          }}
+        >
+          Autores
+        </Typography>
+      </Box>
       <Box
         sx={{
           flex: 1,

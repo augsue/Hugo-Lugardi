@@ -4,6 +4,7 @@ import { BrowserRouter, Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Wiki from "./pages/Wiki";
+import { LoaderProvider } from "./context/LoaderContext";
 import fontFile from "./assets/fonts/CarlBrown.woff2"; // Ajuste para o caminho correto da fonte
 
 const fontStyles = (
@@ -23,6 +24,7 @@ const fontStyles = (
 export default function App() {
   return (
     <BrowserRouter>
+    <LoaderProvider>
       <ThemeProvider theme={theme}>
         {fontStyles}
         <CssBaseline />
@@ -31,6 +33,7 @@ export default function App() {
           <Route path="/wiki/:slug" element={<Wiki />} />
         </Routes>
       </ThemeProvider>
+      </LoaderProvider>
     </BrowserRouter>
   );
 }

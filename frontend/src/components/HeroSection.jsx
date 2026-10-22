@@ -1,5 +1,6 @@
 import bookCover from "../assets/imgs/book-cover.jpeg";
-import brasilia from "../assets/imgs/bsbBridge.jpg";
+// import brasilia from "../assets/imgs/bsbBridge.jpg";
+import bsb from "../assets/imgs/arch.png"
 
 import { Box, Container } from "@mui/material";
 
@@ -9,7 +10,7 @@ export default function HeroSection() {
       sx={{
         width: "100vw",
         minHeight: "97vh",
-        backgroundImage: `url(${brasilia})`,
+        backgroundImage: `url(${bsb})`,
         backgroundSize: "cover",
         backgroundAttachment: "relative",
       }}
