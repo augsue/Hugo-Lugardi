@@ -52,13 +52,13 @@ export default function WikiSection() {
     <Box
       sx={{
         width: "100vw",
-        minHeight: { xs: `calc(100svh - 76px)`, md: "auto" },
+        minHeight: { xs: `calc(100svh - 45px)`, md: "auto" },
         boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         overflow: "hidden",
-        py: 6,
+        py: 2,
         position: "relative",
         background:
           "linear-gradient(to right, #050505 0%, #252422 50%, #050505 100%)",
@@ -79,7 +79,7 @@ export default function WikiSection() {
             display: "flex",
             alignItems: "center",
             gap: 2,
-            mb: 6,
+            mb: 3,
             opacity: 0.3,
           }}
         >
