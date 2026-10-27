@@ -49,7 +49,7 @@ export default function Loader({ open }) {
       sx={{ zIndex: (theme) => theme.zIndex.modal + 1, bgcolor: "#1e1e1e" }}
     >
       <Cube viewBox="30 10 80 90">
-        <g className="cube" fill="none" strokeWidth="0.8" strokeLinejoin="miter">
+        <g className="cube" fill="none" strokeWidth="0.8" strokeLinejoin="bevel">
           {FACES.map((face) =>
             CELLS.map(([i, j]) => (
               <polygon

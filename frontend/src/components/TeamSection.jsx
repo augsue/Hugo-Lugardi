@@ -1,5 +1,8 @@
 // AuthorsSection.jsx
 import { Box, Typography } from "@mui/material";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
 import gauze from "../assets/imgs/gauze.png";
 import Glaucio from "../assets/imgs/Glaucio.jpg";
 import Lucas from "../assets/imgs/Lucas.jpg";
@@ -7,45 +10,25 @@ import Gabs from "../assets/imgs/Gabs.jpg";
 import Davi from "../assets/imgs/Davi.jpg";
 
 const authors = [
-  {
-    name: "Gláucio Augsuê",
-    role: "Escritor",
-    photo: Glaucio,
-    text: "Autor principal do livro, criador deste mundo.",
-  },
-  {
-    name: "Lucas Augsuê",
-    role: "Revisor técnico",
-    photo: Lucas,
-    text: "Lia cada capítulo e revisava os detalhes.",
-  },
-  {
-    name: "Gabriela Gerusa",
-    role: "Coordenadora editorial",
-    photo: Gabs,
-    text: "Corrigia erros e avaliava os personagens.",
-  },
-  {
-    name: "Davi Augsuê",
-    role: "Diretor de mundo",
-    photo: Davi,
-    text: "Ajudou a desenvolver o mundo e seus poderes.",
-  },
+  { name: "Gláucio Augsuê", role: "Escritor", photo: Glaucio, text: "Autor principal do livro, criador deste mundo." },
+  { name: "Lucas Augsuê", role: "Revisor técnico", photo: Lucas, text: "Lia cada capítulo e revisava os detalhes." },
+  { name: "Gabriela Gerusa", role: "Coordenadora editorial", photo: Gabs, text: "Corrigia erros e avaliava os personagens." },
+  { name: "Davi Augsuê", role: "Diretor de mundo", photo: Davi, text: "Ajudou a desenvolver o mundo e seus poderes." },
 ];
 
-function AuthorCard({ name, role, photo, text }) {
+function AuthorCard({ name, role, photo, text, height = "94%" }) {
   return (
     <Box
       sx={{
         position: "relative",
         width: "100%",
-        height: "94%",
+        height,
         minWidth: 0,
         borderRadius: "4px",
         overflow: "hidden",
         backgroundImage: `url(${photo})`,
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "center top",
         boxShadow: "0 6px 16px rgba(0,0,0,0.25)",
         transition: "transform 0.3s ease",
         "&:hover": { transform: "translateY(-4px)" },
@@ -108,46 +91,39 @@ export default function AuthorsSection() {
     <Box
       sx={{
         position: "relative",
-        width: "100vw",
-        height: "90vh",
+        width: "100%",
+        height: { xs: "auto", md: "80vh" },
         backgroundColor: "#f1f1f1",
         backgroundImage: `url(${gauze})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         boxSizing: "border-box",
-        px: "4%",
-        py: "3%",
+        px: { xs: 2, md: "4%" },
+        pb: { xs: 4, md: 0 },
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
       }}
     >
-      <Box
-        sx={{
-          textAlign: "center",
-          gap: 2,
-          mb: 6,
-        }}
-      >
-
+      <Box sx={{ textAlign: "center", py: { xs: 3, md: 5 } }}>
         <Typography
-          component="h2"
           sx={{
-            textAlign: "center",
-            fontSize: "clamp(2rem, 4vw, 3.6rem)",
-            fontFamily: "Eloquence",
-            fontWeight: 700,
-            textTransform: "uppercase",
+            fontSize: { xs: "38px", md: "60px" },
+            fontWeight: "bold",
+            fontFamily: "Perandory",
+            letterSpacing: "3px",
           }}
         >
           Autores
         </Typography>
       </Box>
+
+      {/* Desktop: grid fixo (igual ao original) */}
       <Box
         sx={{
+          display: { xs: "none", md: "grid" },
           flex: 1,
           minHeight: 0,
-          display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
           gridTemplateRows: "100%",
           gap: "2%",
@@ -156,6 +132,27 @@ export default function AuthorsSection() {
         {authors.map((author) => (
           <AuthorCard key={author.name} {...author} />
         ))}
+      </Box>
+
+      {/* Celular: carrossel com autoplay */}
+      <Box sx={{ display: { xs: "block", md: "none" } }}>
+        <Swiper
+          modules={[Autoplay]}
+          loop
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          speed={600}
+          slidesPerView={1} 
+          spaceBetween={14}
+          style={{ padding: "4px 0 8px" }}
+        >
+          {authors.map((author) => (
+            <SwiperSlide key={author.name}>
+              <Box sx={{ height: 440 }}>
+                <AuthorCard {...author} height="100%" />
+              </Box>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </Box>
     </Box>
   );

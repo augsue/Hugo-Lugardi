@@ -12,7 +12,6 @@ export default function WikiCard({
   image,
   title,
   subtitle,
-  emoji,
   color = "#979DAC", // cor hexadecimal do tema do card
   href,
   onClick,
@@ -24,7 +23,7 @@ export default function WikiCard({
       sx={{
         height: "100%",
         borderRadius: "1%",
-        border: `0px solid ${alpha(color, 0.3)}`,
+        border: `1px solid ${alpha(color, 0.3)}`,
         bgcolor: "transparent",
         backgroundImage: "none",
         boxShadow: `0 0 40px -15px ${alpha(color, 0.5)}`,
@@ -80,15 +79,11 @@ export default function WikiCard({
             justifyContent: "flex-end",
             p: 3,
             color: "#fff",
+            textAlign: "center"
           }}
         >
-          <Typography variant="h4" fontWeight={10} letterSpacing="-0.02em">
-            {title}{" "}
-            {emoji && (
-              <Box component="span" sx={{ fontSize: "1.5rem", ml: 0.5 }}>
-                {emoji}
-              </Box>
-            )}
+          <Typography sx={{ fontFamily: "perandory", fontSize: "30px"}}>
+            {title}
           </Typography>
 
           {subtitle && (

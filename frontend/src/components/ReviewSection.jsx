@@ -61,33 +61,29 @@ const MOCK_REVIEWS = [
 // 4 estilos visuais de card. Atribuídos pela posição do slide (índice % 4),
 // independentes do comentário exibido
 const CARD_STYLES = [
-  // Estilo 1: claro, borda lateral marrom
   {
-    backgroundColor: "#F9F8F6",
-    color: "#252422",
+    backgroundColor: "#5C1A1F",
+    color: "#F5E6D3",
+    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.45)",
+    borderLeft: "4px solid #A67C52",
+  },
+  {
+    backgroundColor: "#16120F",
+    color: "#E6D9C0",
+    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.55)",
+    borderLeft: "3px solid #8B6B3D",
+  },
+  {
+    backgroundColor: "#2F3A2B",
+    color: "#EFE6CF",
+    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.45)",
+    borderLeft: "4px solid #556B4A",
+  },
+  {
+    backgroundColor: "#F2E6CE",
+    color: "#33261A",
     boxShadow: "0 4px 16px rgba(0, 0, 0, 0.25)",
-    borderLeft: "4px solid #8B7355",
-  },
-  // Estilo 2: creme com borda dourada
-  {
-    backgroundColor: "#F3EBDD",
-    color: "#2B2215",
-    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
-    border: "1px solid #C9A96E",
-  },
-  // Estilo 3: escuro com texto claro
-  {
-    backgroundColor: "#262626",
-    color: "#EDEDED",
-    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
-    border: "1px solid #3A3A3A",
-  },
-  // Estilo 4: bordô com texto claro
-  {
-    backgroundColor: "#001d3d",
-    color: "#F5E9E2",
-    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.4)",
-    border: "1px solid #003566",
+    borderLeft: "4px solid #A0522D",
   },
 ];
 
@@ -113,8 +109,10 @@ export default function ReviewSection({ reviews = MOCK_REVIEWS }) {
     // Section wrapper: largura total da viewport, fundo em gradiente + ruído SVG
     <Box
       sx={{
-        width: "100vw",
-        py: 6,
+        width: "100%",
+        py: { xs: 2, md: 3 },
+        px: { xs: 1.5, md: 0 },
+        boxSizing: "border-box",
         position: "relative",
         backgroundImage: `url(${blackGauze})`,
         borderTop: "2px solid #000000",
@@ -122,44 +120,29 @@ export default function ReviewSection({ reviews = MOCK_REVIEWS }) {
       }}
     >
       {/* Container (MUI): limita a largura do conteúdo e centraliza */}
-      <Box sx={{ maxWidth: "100%", mx: "auto", px: 3 }}>
+      <Box sx={{ maxWidth: "100%", mx: "auto", px: { sx: 1, md: 3 } }}>
         {/* Header: título com linhas decorativas dos dois lados */}
         <Box
           sx={{
-            display: "flex",
             alignItems: "center",
+            textAlign: "center",
             gap: 3,
-            mb: { xs: 3, md: 4 },
-            py: 1,
+            py: { xs: 0.5, md: 2 },
           }}
         >
-          <Box
-            sx={{
-              flex: 1,
-              height: "1px",
-              backgroundColor: (theme) => theme.palette.secondary.main,
-              opacity: 0.4,
-            }}
-          />
           <Typography
             sx={{
-              fontSize: "45px",
-              fontFamily: "Eloquence",
-              color: "#fff",
+              textAlign: "center",
+              fontFamily: "Perandory",
+              color: "#e8e4dc",
               fontWeight: 400,
-              letterSpacing: "0.05em",
+              fontSize: { xs: "37px", md: "50px" },
+              mb: { xs: 1, md: 2 },
+              letterSpacing: { xs: "2px", md: "3px" },
             }}
           >
             Comentários
           </Typography>
-          <Box
-            sx={{
-              flex: 1,
-              height: "1px",
-              backgroundColor: (theme) => theme.palette.secondary.main,
-              opacity: 0.4,
-            }}
-          />
         </Box>
 
         {/* Swiper (carousel root): gerencia slides, loop, autoplay e transições */}
@@ -177,7 +160,7 @@ export default function ReviewSection({ reviews = MOCK_REVIEWS }) {
           breakpoints={{
             900: { slidesPerView: 4, spaceBetween: 24 }, // Desktop: 4 cards simultâneos
           }}
-          style={{ paddingTop: 8, paddingBottom: 8 }} // Respiro para as sombras dos cards
+          style={{ paddingTop: 4, paddingBottom: 4 }} // Respiro para as sombras dos cards
         >
           {order.map((item, index) => {
             // Estilo pela posição do slide original no ciclo de 4 estilos
@@ -193,9 +176,9 @@ export default function ReviewSection({ reviews = MOCK_REVIEWS }) {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
-                    minHeight: { xs: 120, md: 140 },
-                    p: { xs: 2.5, md: 3 },
                     borderRadius: "2px",
+                    minHeight: { xs: 100, md: 140 },
+                    p: { xs: 2, md: 3 },
                     ...style,
                   }}
                 >

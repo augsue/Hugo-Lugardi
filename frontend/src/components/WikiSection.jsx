@@ -11,9 +11,9 @@ import castle from "../assets/imgs/castel.jpg";
 const itens = [
   {
     image: bible,
-    title: "Referências Bíblicas",
+    title: "Referências",
     subtitle: "Bases bíblicas para a escrita",
-    href: "/wiki/referencias-biblicas",
+    href: "/wiki/referencias",
   },
   {
     image: art,
@@ -52,12 +52,16 @@ export default function WikiSection() {
     <Box
       sx={{
         width: "100vw",
-        height: "90vh",
+        minHeight: { xs: `calc(100svh - 76px)`, md: "auto" },
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
         overflow: "hidden",
         py: 6,
         position: "relative",
         background:
-          "linear-gradient(to right, #050505 0%, #0f0f0f 50%, #050505 100%)",
+          "linear-gradient(to right, #050505 0%, #252422 50%, #050505 100%)",
         "&::before": {
           content: '""',
           position: "absolute",

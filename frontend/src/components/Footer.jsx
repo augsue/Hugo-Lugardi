@@ -16,14 +16,13 @@ export default function Footer() {
       component="footer"
       sx={{
         width: "100vw",
+        maxHeight: {xs: "170px", md: "200px"},
         position: "relative",
         backgroundImage: `url(${blackGauze})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         color: "#fff",
-        pt: 8,
-        pb: 6,
-        minHeight: 220,
+        py: 5,
       }}
     >
       <Box sx={{ maxWidth: 1000, mx: "auto", px: 3 }}>
@@ -47,9 +46,8 @@ export default function Footer() {
           </Box>
 
           <Box component="nav" sx={{ display: "flex", gap: 2.5 }}>
-            <Link href="#" sx={linkSx}>HOME</Link>
-            <Link href="#" sx={linkSx}>SOBRE</Link>
-            <Link href="#" sx={linkSx}>INSTAGRAM</Link>
+            <Link href="/#home" sx={linkSx}>HOME</Link>
+            <Link href="www.instagram.com/hugolugardi/" sx={linkSx}>INSTAGRAM</Link>
           </Box>
         </Box>
 
@@ -67,9 +65,6 @@ export default function Footer() {
           <Typography variant="body2" sx={{ fontSize: 12 }}>
             © 2026 Hugo Lugardi. Todos os direitos reservados.
           </Typography>
-          <Link href="#" sx={{ ...linkSx, fontWeight: 400 }}>
-            Política de Privacidade
-          </Link>
         </Box>
       </Box>
     </Box>
