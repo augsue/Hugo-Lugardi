@@ -37,7 +37,7 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Garamond", serif',
+    fontFamily: '"Times New Roman", serif',
     h1: {
       fontFamily: '"Garamond", serif',
       fontSize: "48px",

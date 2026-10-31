@@ -1,7 +1,14 @@
+// src/components/Header.jsx
 import { AppBar, Toolbar, Box, Button, Typography } from "@mui/material";
-import CubeWhite from "../assets/cube_white.svg?react";
 
-const NAV_HEIGHT = "48px";
+/* ============ PALETA (igual à WikiPage; HEX de 6 dígitos) ============ */
+const PRIMARIA = "#a8454f";
+const TEXTO = "#efe4cc";
+const TEXTO_SUAVE = "#b9ab8e";
+// const FUNDO = "#120e0c";
+/* ===================================================================== */
+
+const NAV_HEIGHT = { xs: "70px", md: "55px" };
 
 export default function Header() {
   const navItems = ["Home", "Autores", "Wiki", "Feedback"];
@@ -13,79 +20,106 @@ export default function Header() {
         top: 0,
         left: 0,
         right: 0,
-        margin: 0,
         width: "100%",
         height: NAV_HEIGHT,
-        zIndex: (theme) => theme.zIndex.appBar,
         borderRadius: 0,
-        backgroundImage:
-          "linear-gradient(to right, #0a0908 0%, #161a1d 50%, #0a0908 100%)",
-        backgroundSize: "auto, auto",
-        backgroundRepeat: "no-repeat, repeat",
-        borderBottom: "2px solid #000000",
+        backgroundImage: `linear-gradient(to right, #050505 0%, #1c1714 50%, #050505 100%)`,
+        borderBottom: `1px solid ${PRIMARIA}59`,
+        boxShadow: `0 4px 24px rgba(0,0,0,.6)`,
       }}
     >
       <Toolbar
         disableGutters
         sx={{
           height: NAV_HEIGHT,
-          minHeight: `${NAV_HEIGHT} !important`,
-          padding: "0 24px",
-          justifyContent: "space-between",
+          minHeight: { xs: "76px !important", md: "55px !important" },
+          flexDirection: { xs: "column", md: "row" },
+          justifyContent: { xs: "center", md: "space-between" },
+          gap: { xs: "0px", md: 0 },
+          mx: { xs: "8px", md: "30px" },
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            marginLeft: "50px",
-          }}
-        >
-          <Box sx={{ display: "flex", alignItems: "center", height: "26px" }}>
-            <CubeWhite
-              style={{
-                width: "auto",
-                height: "40px",
-                filter: "brightness(0) invert(1)",
-              }}
-            />
-          </Box>
+        {/* Logo */}
+        <Box>
           <Typography
             sx={{
-              fontSize: "30px",
-              fontFamily: "Eloquence",
-              color: "#e8e4dc",
+              color: TEXTO,
+              fontSize: { xs: "26px", md: "33px" },
+              fontFamily: "Perandory",
+              lineHeight: { xs: 0.9, md: 0.7 },
+              textAlign: "center",
+              letterSpacing: "3px",
+              textShadow: `0 0 18px ${PRIMARIA}66`,
             }}
           >
             Hugo Lugardi
           </Typography>
+          <Typography
+            sx={{
+              fontSize: { xs: "14px", md: "17px" },
+              color: TEXTO_SUAVE,
+              fontFamily: "Burgues",
+              lineHeight: 0.8,
+              textAlign: "center",
+              mt: { xs: "-4px", md: 0 },
+            }}
+          >
+            E a Ordem Magoi
+          </Typography>
         </Box>
 
-        <Box sx={{ display: "flex", gap: "32px", marginRight: "50px" }}>
+        {/* Links */}
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
           {navItems.map((item) => (
             <Button
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={`/#${item.toLowerCase()}`}
               sx={{
-                color: "#e8e4dc",
+                color: TEXTO,
                 textTransform: "none",
-                fontSize: "20px",
-                fontFamily: "Eloquence",
+                fontSize: { xs: "18px", md: "25px" },
+                fontFamily: "Perandory",
                 fontWeight: 500,
+                letterSpacing: "1px",
+                minHeight: { xs: "28px", md: "auto" },
+                minWidth: 0,
+                px: { xs: "10px", md: "16px" },
+                py: { xs: 0, md: "6px" },
                 position: "relative",
-                "&:hover": { backgroundColor: "transparent" },
+                transition: "color .3s, text-shadow .3s",
+                "&:hover": {
+                  backgroundColor: "transparent",
+                  color: "#fff",
+                  textShadow: `0 0 14px ${PRIMARIA}`,
+                },
+                // linha que cresce do centro
                 "&::after": {
                   content: '""',
                   position: "absolute",
                   bottom: "2px",
-                  left: 0,
+                  left: "50%",
                   width: "0%",
-                  height: "1.2px",
-                  backgroundColor: "#e8e4dc",
-                  transition: "width 0.4s ease",
+                  height: "1.5px",
+                  backgroundColor: PRIMARIA,
+                  transform: "translateX(-50%)",
+                  transition: "width .4s ease",
                 },
-                "&:hover::after": { width: "100%" },
+                "&:hover::after": { width: "70%" },
+                // losango que aparece embaixo
+                "&::before": {
+                  content: '""',
+                  position: "absolute",
+                  bottom: "-1px",
+                  left: "50%",
+                  width: 6,
+                  height: 6,
+                  backgroundColor: PRIMARIA,
+                  transform: "translateX(-50%) rotate(45deg) scale(0)",
+                  transition: "transform .3s ease .1s",
+                },
+                "&:hover::before": {
+                  transform: "translateX(-50%) rotate(45deg) scale(1)",
+                },
               }}
             >
               {item}
