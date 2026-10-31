@@ -4,12 +4,14 @@ import { BrowserRouter, Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Wiki from "./pages/Wiki";
+import FullWiki from "./pages/FullWiki";
+import Admin from "./pages/Admin"
 import { LoaderProvider } from "./context/LoaderContext";
 
 import carlBrown from "./assets/fonts/CarlBrown.woff2";
 import burguesScript from "./assets/fonts/Burgues Script Regular.woff2";
 import perandory from "./assets/fonts/perandory-regular.woff2";
-import playFair from "./assets/fonts/PlayfairDisplay-Regular.ttf"
+import playFair from "./assets/fonts/PlayfairDisplay-Regular.ttf";
 
 const fontStyles = (
   <GlobalStyles
@@ -55,7 +57,9 @@ export default function App() {
           <CssBaseline />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/wiki/:slug" element={<Wiki />} />
+            <Route path="/Wiki/:slug" element={<Wiki />} />
+            <Route path="/Wiki" element={<FullWiki />} />
+            <Route path="/Admin" element={<Admin />} />
           </Routes>
         </ThemeProvider>
       </LoaderProvider>

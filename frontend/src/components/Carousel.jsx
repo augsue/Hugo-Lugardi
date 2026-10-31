@@ -14,7 +14,7 @@ export default function WikiCarousel({ itens = [] }) {
   const swiperRef = useRef(null);
 
   const arrowSx = {
-    color: "#fff",
+    color: "#f0e4cc",
     zIndex: 10,
     position: { xs: "static", md: "absolute" },
     top: { md: "50%" },
@@ -47,6 +47,7 @@ export default function WikiCarousel({ itens = [] }) {
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
         }}
+        style={{overflow: "visible", clipPath: "inset(-60px -10px -60px -10px)",}}
       >
         {itens.map((item) => (
           <SwiperSlide key={item.title} style={{ height: "auto" }}>
