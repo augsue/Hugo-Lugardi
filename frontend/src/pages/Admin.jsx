@@ -2,24 +2,18 @@ import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import LoginOverlay from "../components/admin/LoginOverlay";
 
-// TODO (autenticação): REMOVER. Só para testar o fluxo do overlay.
-// Nunca validar chave no frontend em produção, ela ficaria exposta no bundle.
-const DEV_KEY = "dev123";
-
 export default function AdminPage() {
   const [authenticated, setAuthenticated] = useState(false);
 
-  // TODO (autenticação): trocar por chamada ao backend:
-  //   const res = await fetch("/api/admin/login", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ key }),
-  //   });
-  //   if (!res.ok) throw new Error("invalid");
-  //   const { token } = await res.json();
-  //   TODO (sessão): guardar token (sessionStorage ou cookie httpOnly)
-  const handleLogin = async (key) => {
-    if (key !== DEV_KEY) throw new Error("invalid");
+    const handleLogin = async (key) => {
+    const res = await fetch("/api/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key }),
+    });
+    if (!res.ok) throw new Error("invalid");
+    const { token } = await res.json();
+    sessionStorage.setItem("admin_token", token);
     setAuthenticated(true);
   };
 
