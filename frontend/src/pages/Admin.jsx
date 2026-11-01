@@ -1,11 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import LoginOverlay from "../components/admin/LoginOverlay";
 
 export default function AdminPage() {
   const [authenticated, setAuthenticated] = useState(false);
+  const [checking, setChecking] = useState(true); // true enquanto confere o token salvo
 
-    const handleLogin = async (key) => {
+  // Ao abrir a página, confere se já existe um token válido
+  useEffect(() => {
+    const checkSession = async () => {
+      const token = sessionStorage.getItem("admin_token");
+      if (!token) {
+        setChecking(false);
+        return;
+      }
+      try {
+        const res = await fetch("/api/admin/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res.ok) {
+          setAuthenticated(true);
+        } else {
+          sessionStorage.removeItem("admin_token"); // token vencido ou inválido
+        }
+      } catch {
+        // backend fora do ar: cai no login
+      } finally {
+        setChecking(false);
+      }
+    };
+    checkSession();
+  }, []);
+
+  const handleLogin = async (key) => {
     const res = await fetch("/api/admin/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -17,15 +44,12 @@ export default function AdminPage() {
     setAuthenticated(true);
   };
 
-  // TODO (sessão): ao montar, checar se já existe token válido
-  //   e chamar setAuthenticated(true) para pular o login.
-
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "#0d0b0b", color: "#e8dcc8" }}>
-      <LoginOverlay open={!authenticated} onSubmit={handleLogin} />
+      {/* Só mostra o overlay depois da checagem, para não piscar o login
+          quando já existe sessão válida */}
+      <LoginOverlay open={!checking && !authenticated} onSubmit={handleLogin} />
 
-      {/* Só renderiza o conteúdo após autenticar, assim ele nem
-          existe no DOM por baixo do overlay */}
       {authenticated && (
         <Box sx={{ p: 4 }}>
           <Typography variant="h4" sx={{ textTransform: "uppercase" }}>
@@ -34,7 +58,6 @@ export default function AdminPage() {
 
           {/* TODO: Gerenciamento da Wiki */}
           {/* TODO: Gerenciamento dos comentários/feedbacks */}
-          {/* TODO: botão de logout */}
         </Box>
       )}
     </Box>
