@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
+from app.routes import admin
 
 from database import SessionLocal
 from models import Author
@@ -40,6 +41,8 @@ api = APIRouter(prefix="/api")
 @api.get("/status")
 def status():
     return {"status": "certíssimo"}
+
+api.include_router(admin.router)
 
 @app.get("/")
 def read_root():
