@@ -1,53 +1,7 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean
-from database import Base
-from sqlalchemy.orm import relationship
+from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text, false
 from sqlalchemy.sql import func
 
-
-class Book(Base):
-    __tablename__ = "books"
-
-    id = Column(Integer, primary_key=True, index=True) #books.id
-    title = Column(String(200), nullable=False) #books.title
-    synopsis = Column(Text) #books.synopsis
-    cover = Column(String(300)) #books.cover
-
-    authors = relationship("Author", back_populates="book") #books.authors
-    characters = relationship("Character", back_populates="book") #books.characters
-
-
-class Author(Base):
-    __tablename__ = "authors"
-
-    id = Column(Integer, primary_key=True, index=True) #authors.id
-    name = Column(String(150), nullable=False) #authors.name
-    bio = Column(Text) #authors.bio
-    photo = Column(String(300)) #authors.image
-
-    book_id = Column(Integer, ForeignKey("books.id")) #authors.book_id
-    book = relationship("Book", back_populates="authors") #authors.book
-
-
-class Character(Base):
-    __tablename__ = "characters"
-
-    id = Column(Integer, primary_key=True, index=True) #characters.id
-    name = Column(String(150), nullable=False) #characters.name
-    description = Column(Text) #characters.description
-    image = Column(String(300)) #characters.image
-
-    book_id = Column(Integer, ForeignKey("books.id")) #characters.book_id
-    book = relationship("Book", back_populates="characters") #characters.book
-
-
-class User(Base):
-    __tablename__ = "users"
-
-    id = Column(Integer, primary_key=True, index=True) #users.id
-    name = Column(String(150), nullable=False) #users.name
-    email = Column(String(200), unique=True, nullable=False) #users.email
-    password_hash = Column(String(300), nullable=False) #users.password_hash
-    created_at = Column(DateTime(timezone=True), server_default=func.now()) #users.created_at
+from database import Base
 
 
 class Feedback(Base):
@@ -60,3 +14,16 @@ class Feedback(Base):
     fixed = Column(Boolean, default=False, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
+
+class WikiPage(Base):
+    __tablename__ = "wiki_pages"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(120), nullable=False)
+    slug = Column(String(150), unique=True, index=True, nullable=False)  # URL: /wiki/<slug>
+    subtitle = Column(String(200))
+    category = Column(String(50), index=True, nullable=False)  # chave da lista fixa (validada no back)
+    content = Column(Text, nullable=False)
+    image_url = Column(String(500), nullable=False)
+    fixed = Column(Boolean, default=False, server_default=false(), nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())

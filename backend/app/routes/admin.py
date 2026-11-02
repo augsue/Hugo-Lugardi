@@ -2,6 +2,13 @@ import os
 import secrets
 from datetime import datetime, timedelta, timezone
 
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from database import get_db
+from models import Feedback
+from app.schemas import FeedbackAdminOut, FeedbackFixedIn
+
 import jwt
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -57,3 +64,18 @@ def me():
 
 
 # TODO: rotas de Wiki e feedbacks entram aqui com dependencies=[Depends(require_admin)]
+
+@router.get("/comments", response_model=list[FeedbackAdminOut], dependencies=[Depends(require_admin)])
+def list_comments(db: Session = Depends(get_db)):
+    return db.scalars(select(Feedback).order_by(Feedback.created_at.desc())).all()
+
+
+@router.patch("/comments/{comment_id}", response_model=FeedbackAdminOut, dependencies=[Depends(require_admin)])
+def set_comment_fixed(comment_id: int, body: FeedbackFixedIn, db: Session = Depends(get_db)):
+    comment = db.get(Feedback, comment_id)
+    if comment is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Comentário não encontrado")
+    comment.fixed = body.fixed
+    db.commit()
+    db.refresh(comment)
+    return comment

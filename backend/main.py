@@ -6,7 +6,6 @@ from sqlalchemy.orm import Session
 from app.routes import admin
 
 from database import SessionLocal
-from models import Author
 from app.routes.feedbacks import router as feedbacks_router
 
 

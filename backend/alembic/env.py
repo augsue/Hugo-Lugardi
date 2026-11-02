@@ -12,7 +12,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 load_dotenv()
 
 from database import Base, DATABASE_URL
-from models import Book, Author, Character, User, Feedback
+import models
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
