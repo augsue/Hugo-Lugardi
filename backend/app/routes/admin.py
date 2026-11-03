@@ -173,3 +173,11 @@ async def upload_image(request: Request, filename: str = "imagem"):
         add_random_suffix=True,  # evita sobrescrever imagens com o mesmo nome
     )
     return {"url": result.url}
+
+@router.delete("/comments/{comment_id}", status_code=204, dependencies=[Depends(require_admin)])
+def delete_comment(comment_id: int, db: Session = Depends(get_db)):
+    comment = db.get(Feedback, comment_id)
+    if comment is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Comentário não encontrado")
+    db.delete(comment)
+    db.commit()
