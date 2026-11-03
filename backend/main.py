@@ -1,13 +1,16 @@
+from dotenv import load_dotenv
+from pathlib import Path
 from fastapi import FastAPI, APIRouter, Depends
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
-from app.routes import admin
-
+from app.routes import admin, wiki
 from database import SessionLocal
 from app.routes.feedbacks import router as feedbacks_router
 
+load_dotenv(Path(__file__).parent / ".env")
+load_dotenv(Path(__file__).parent / ".env.local")
 
 def get_db():
     db = SessionLocal()
@@ -42,6 +45,7 @@ def status():
     return {"status": "certíssimo"}
 
 api.include_router(admin.router)
+api.include_router(wiki.router)
 
 @app.get("/")
 def read_root():
