@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Stack, Switch, Typography, CircularProgress } from "@mui/material";
+import {
+  Box, Button, Dialog, DialogActions, DialogContent,
+  Stack, Switch, Typography, CircularProgress,
+} from "@mui/material";
 import AdminCard from "./AdminCard";
-import { AccentDash } from "./Ornaments";
-import { COLORS, FONT_DISPLAY, outlineBtnSx, solidBtnSx } from "./adminStyles";
-import { getComments, setCommentPinned } from "../../services/adminApi";
+import { AccentDash, Heading } from "./Ornaments";
+import {
+  COLORS, FONT_DISPLAY, dangerBtnSx, dialogPaperSx, outlineBtnSx, solidBtnSx,
+} from "./adminStyles";
+import { getComments, setCommentPinned, deleteComment } from "../../services/adminApi";
 
 export default function CommentsManager() {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [onlyPinned, setOnlyPinned] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    getComments() // TODO (back): conectar em adminApi.getComments
+    getComments()
       .then(setComments)
       .catch(() => setError("Não foi possível carregar os comentários."))
       .finally(() => setLoading(false));
@@ -23,10 +30,26 @@ export default function CommentsManager() {
     // Atualiza na tela na hora e desfaz se o back falhar
     setComments((prev) => prev.map((c) => (c.id === comment.id ? { ...c, pinned } : c)));
     try {
-      await setCommentPinned(comment.id, pinned); // TODO (back): conectar em adminApi.setCommentPinned
+      await setCommentPinned(comment.id, pinned);
     } catch {
       setComments((prev) => prev.map((c) => (c.id === comment.id ? { ...c, pinned: !pinned } : c)));
       setError("Não foi possível atualizar o comentário.");
+    }
+  };
+
+  const handleDelete = async () => {
+    setDeleting(true);
+    setError("");
+    try {
+      await deleteComment(deleteTarget.id);
+      // Só tira da tela depois que o back confirmou
+      setComments((prev) => prev.filter((c) => c.id !== deleteTarget.id));
+      setDeleteTarget(null);
+    } catch {
+      setError("Não foi possível excluir o comentário.");
+      setDeleteTarget(null);
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -92,22 +115,52 @@ export default function CommentsManager() {
               <Typography sx={{ color: COLORS.navy, whiteSpace: "pre-wrap" }}>{c.text}</Typography>
             </Box>
 
-            <Box sx={{ textAlign: "center" }}>
-              <Switch
-                checked={c.pinned}
-                onChange={() => handleTogglePin(c)}
-                sx={{
-                  "& .MuiSwitch-switchBase.Mui-checked": { color: COLORS.accent },
-                  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": { bgcolor: COLORS.accent },
-                }}
-              />
-              <Typography sx={{ color: COLORS.muted, fontSize: 12, letterSpacing: 2, textTransform: "uppercase" }}>
-                Fixar
-              </Typography>
-            </Box>
+            <Stack spacing={1} sx={{ alignItems: "center", position: "relative", zIndex: 1 }}>
+              <Box sx={{ textAlign: "center" }}>
+                <Switch
+                  checked={c.pinned}
+                  onChange={() => handleTogglePin(c)}
+                  sx={{
+                    "& .MuiSwitch-switchBase.Mui-checked": { color: COLORS.accent },
+                    "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": { bgcolor: COLORS.accent },
+                  }}
+                />
+                <Typography sx={{ color: COLORS.muted, fontSize: 12, letterSpacing: 2, textTransform: "uppercase" }}>
+                  Fixar
+                </Typography>
+              </Box>
+              <Button size="small" sx={{ ...dangerBtnSx, px: 2 }} onClick={() => setDeleteTarget(c)}>
+                Excluir
+              </Button>
+            </Stack>
           </Box>
         ))}
       </Stack>
+
+      {/* Confirmação antes de excluir */}
+      <Dialog
+        open={!!deleteTarget}
+        onClose={deleting ? undefined : () => setDeleteTarget(null)}
+        slotProps={{ paper: { sx: dialogPaperSx } }}
+      >
+        <Box sx={{ pt: 4, px: 4 }}>
+          <Heading title="Excluir comentário?" />
+        </Box>
+        <DialogContent>
+          <Typography sx={{ color: COLORS.navy, textAlign: "center" }}>
+            O comentário de "{deleteTarget?.name}" será apagado e não dá para desfazer.
+            {deleteTarget?.pinned && " Ele também deixa de aparecer na seção de reviews do site."}
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={{ p: 3, justifyContent: "center", gap: 2 }}>
+          <Button sx={outlineBtnSx} onClick={() => setDeleteTarget(null)} disabled={deleting}>
+            Cancelar
+          </Button>
+          <Button sx={dangerBtnSx} onClick={handleDelete} disabled={deleting}>
+            {deleting ? "Excluindo..." : "Excluir"}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </AdminCard>
   );
 }

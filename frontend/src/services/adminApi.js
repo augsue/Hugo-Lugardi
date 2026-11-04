@@ -97,6 +97,7 @@ export async function deleteWikiPage(id) {
   await authFetch(`/api/admin/wiki/${id}`, { method: "DELETE" });
 }
 
+
 export async function setWikiPagePinned(id, pinned) {
   await authFetch(`/api/admin/wiki/${id}`, {
     method: "PATCH",
@@ -112,4 +113,8 @@ export async function uploadImage(file) {
     body: file,
   });
   return data.url;
+}
+
+export async function deleteComment(id) {
+  await authFetch(`/api/admin/comments/${id}`, { method: "DELETE" });
 }
