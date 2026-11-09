@@ -7,6 +7,9 @@ from database import get_db
 from models import Feedback
 from app.schemas import FeedbackCreate
 
+from sqlalchemy import select
+from app.schemas import FeedbackCreate, FeedbackPublicOut
+
 router = APIRouter(prefix="/api")
 
 
@@ -22,3 +25,9 @@ def create_feedback(data: FeedbackCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(feedback)
     return {"id": feedback.id, "fixed": feedback.fixed}
+
+@router.get("/feedbacks/fixed", response_model=list[FeedbackPublicOut])
+def list_fixed_feedbacks(db: Session = Depends(get_db)):
+    return db.scalars(
+        select(Feedback).where(Feedback.fixed.is_(True)).order_by(Feedback.created_at.desc())
+    ).all()

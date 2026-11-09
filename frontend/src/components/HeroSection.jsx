@@ -1,22 +1,29 @@
 // src/components/HeroSection.jsx
 import bookCover from "../assets/imgs/book-cover.jpeg";
-import book from "../assets/imgs/library.png";
+import book from "../assets/imgs/Bookshelf.jpg";
 import { Box, Typography } from "@mui/material";
 
 /* ============ PALETA (igual à WikiPage; HEX de 6 dígitos) ============ */
 const PRIMARIA = "#a8454f";
 const TEXTO = "#efe4cc";
-const TEXTO_SUAVE = "#b9ab8e";
 const FUNDO = "#120e0c";
 /* ===================================================================== */
+
+const textoBase = {
+  fontFamily: "Play Fair",
+  color: TEXTO,
+  fontSize: { xs: "15px", md: "19px" },
+  lineHeight: 1.8,
+  mb: 2,
+};
 
 export default function HeroSection() {
   return (
     <Box
       sx={{
         width: "100%",
-        minHeight: { xs: "90vh", md: "96vh" },
-        backgroundImage: `url(${book})`,
+        minHeight: { xs: "90vh", md: "97vh" },
+        backgroundImage: `linear-gradient(180deg, ${FUNDO}10 0%, ${FUNDO}cc 150%), url(${book})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         py: { xs: 12, md: 14 },
@@ -33,7 +40,7 @@ export default function HeroSection() {
           position: "relative",
           width: "100%",
           maxWidth: { xs: "100%", md: "1300px" },
-          minHeight: { xs: "100px", md: "700px" },
+          minHeight: { xs: "100px", md: "780px" },
           mx: "auto",
           boxSizing: "border-box",
           p: { xs: "28px 20px", md: "48px 56px" },
@@ -42,11 +49,11 @@ export default function HeroSection() {
           borderRadius: "4px",
           backgroundImage: [
             // reflexo diagonal (vidro)
-            "linear-gradient(115deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 22%, transparent 42%)",
+            "linear-gradient(115deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 32%, transparent 92%)",
             // brilho vinho no canto superior esquerdo
             `radial-gradient(ellipse at 0% 0%, ${PRIMARIA}22, transparent 55%)`,
             // base escura
-            `linear-gradient(to right, ${FUNDO}eb 0%, #1c1714cc 50%, ${FUNDO}eb 100%)`,
+            `linear-gradient(to right, ${FUNDO}eb 0%, #1c1714cc 40%, ${FUNDO}eb 110%)`,
           ].join(", "),
           backdropFilter: "blur(8px)",
           WebkitBackdropFilter: "blur(8px)",
@@ -118,7 +125,7 @@ export default function HeroSection() {
             sx={{
               position: "relative",
               float: "left",
-              width: { xs: "120px", md: "300px" },
+              width: { xs: "120px", md: "320px" },
               mr: { xs: 2, md: 4 },
               mb: { xs: 1, md: 2 },
               borderRadius: "3px",
@@ -175,27 +182,46 @@ export default function HeroSection() {
               color: TEXTO,
               fontSize: { xs: "15px", md: "19px" },
               lineHeight: 1.8,
+              mb: 2,
               "&::first-letter": {
                 fontFamily: "Perandory",
                 color: PRIMARIA,
                 filter: "brightness(1.35)",
-                fontSize: { xs: "2.7em", md: "3.4em" },
+                fontSize: { xs: "2.7em", md: "2.3em" },
                 float: "left",
-                lineHeight: 0.75,
-                mt: { xs: "0.22em", md: "0.12em" },
+                mt: { xs: "0.22em", md: "0.1em" },
                 pr: 1,
               },
             }}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
-            ipsum dolor sit amet consectetur, adipisicing elit. Odit earum ipsum
-            enim soluta! Distinctio aliquid iste dolor maiores, ipsum earum sunt
-            blanditiis aliquam doloribus voluptate. Rem consectetur omnis
-            accusamus quas! Lorem ipsum dolor sit amet consectetur, adipisicing
-            elit. A facere quibusdam, numquam praesentium adipisci sed
-            consecteturs officia, iste modi aliquam suscipit dicta voluptates
-            eveniet. Perferendis modi praesentium delectus dolorem a!
+            Hugo Lugardi é um jovem comum de Brasília, com uma vida simples e
+            sonhos ainda indefinidos. Não imagina que,
+            em breve, tudo será diferente.
+          </Typography>
+
+          <Typography sx={textoBase}>
+            Tudo muda quando ele é chamado para algo maior do que jamais
+            imaginou. Um chamado que chega de forma inesperada, carregado de
+            mistério e de uma sensação difícil de explicar, como se alguém
+            estivesse esperando por ele há muito tempo.
+          </Typography>
+
+          <Typography sx={textoBase}>
+            Hugo é introduzido à Ordem Magoi, uma
+            ordem milenar fundada pelos três reis magos. Entre livros antigos,
+            símbolos esquecidos e histórias transmitidas de geração em geração,
+            ele começa a compreender a grandeza daquilo que o cerca.
+          </Typography>
+
+          <Typography sx={textoBase}>
+            Hugo vai aprender que o propósito de cada um começa com um passo de fé.
+            Haverá momentos de dúvida, de medo e de coragem, e é justamente
+            nesses momentos que ele descobrirá a força que sempre esteve dentro
+            de si.
+          </Typography>
+
+          <Typography sx={{ ...textoBase, fontStyle: "italic", mb: 0 }}>
+            Uma jornada de coragem, mistério e fé.
           </Typography>
         </Box>
       </Box>

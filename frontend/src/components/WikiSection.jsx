@@ -2,13 +2,8 @@
 import { Box, Container, Button, Typography } from "@mui/material";
 import Carousel from "./Carousel";
 
-import bible from "../assets/imgs/bible.jpg";
-import bsb from "../assets/imgs/bsb.jpg";
-import art from "../assets/imgs/art.jpg";
-import rcube from "../assets/imgs/RCube.jpg";
-import people from "../assets/imgs/people.png";
-import castle from "../assets/imgs/castel.jpg";
-import book from "../assets/imgs/bookshelves.jpg";
+import { useEffect, useState } from "react";
+import { getFixedWikiPages } from "../services/adminApi";
 
 /* ============ PALETA (igual à WikiPage; HEX de 6 dígitos) ============ */
 const PRIMARIA = "#a8454f";
@@ -16,16 +11,6 @@ const TEXTO = "#efe4cc";
 const TEXTO_SUAVE = "#b9ab8e";
 const FUNDO = "#120e0c";
 /* ===================================================================== */
-
-const itens = [
-  { image: bible, title: "Referências", subtitle: "Bases bíblicas para a escrita", href: "/wiki/referencias" },
-  { image: art, title: "Aventura", subtitle: "Explore o mundo espiritual", href: "/wiki/aventura" },
-  { image: bsb, title: "Ambientação", subtitle: "Brasília - Águas Claras", href: "/wiki/ambientacao" },
-  { image: rcube, title: "Poderes", subtitle: "Definição dos poderes", href: "/wiki/poderes" },
-  { image: people, title: "Reino Espiritual", subtitle: "O Reino invisível", href: "/wiki/reino-espiritual" },
-  { image: castle, title: "A Ordem Magoi", subtitle: "O esconderijo da ordem", href: "/wiki/a-ordem-magoi" },
-  { image: book, title: "Literatura", subtitle: "Acompanhe a escrita do livro", href: "/wiki/literatura" },
-];
 
 function Ornamento({ direcao = "right" }) {
   return (
@@ -61,11 +46,33 @@ function Ornamento({ direcao = "right" }) {
 }
 
 export default function WikiSection() {
+  const [itens, setItens] = useState([]);
+
+  useEffect(() => {
+    getFixedWikiPages()
+      .then((pages) =>
+        setItens(
+          pages.map((p) => ({
+            image: p.imageUrl,
+            title: p.title,
+            subtitle: p.subtitle,
+            href: `/wiki/${p.slug}`,
+          })),
+        ),
+      )
+      .catch((err) => {
+        console.error("Erro ao carregar wiki:", err);
+        setItens([]);
+      });
+  }, []);
+
+  if (itens.length === 0) return null;
+
   return (
     <Box
       sx={{
         width: "100vw",
-        minHeight: { xs: `calc(100svh - 45px)`, md: "90vh" },
+        minHeight: { xs: `calc(100svh - 45px)`, md: "96vh" },
         boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
@@ -89,7 +96,12 @@ export default function WikiSection() {
       }}
     >
       <Container
-        sx={{ position: "relative", height: "100%", p: 0, maxWidth: "85% !important" }}
+        sx={{
+          position: "relative",
+          height: "100%",
+          p: 0,
+          maxWidth: "85% !important",
+        }}
       >
         {/* Título da seção */}
         <Box sx={{ textAlign: "center", mt: 1, mb: { xs: 3, md: 5 } }}>

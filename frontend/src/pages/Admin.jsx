@@ -1,46 +1,89 @@
-import { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { useState, useEffect } from "react";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
 import LoginOverlay from "../components/admin/LoginOverlay";
-
-// TODO (autenticação): REMOVER. Só para testar o fluxo do overlay.
-// Nunca validar chave no frontend em produção, ela ficaria exposta no bundle.
-const DEV_KEY = "dev123";
+import CommentsManager from "../components/admin/CommentsManager";
+import WikiManager from "../components/admin/WikiManager";
+import { COLORS, FONT_DISPLAY } from "../components/admin/adminStyles";
+import gauze from "../assets/imgs/gauze.png"; // ajuste o caminho se preciso
 
 export default function AdminPage() {
   const [authenticated, setAuthenticated] = useState(false);
+  const [checking, setChecking] = useState(true);
+  const [tab, setTab] = useState("comments");
 
-  // TODO (autenticação): trocar por chamada ao backend:
-  //   const res = await fetch("/api/admin/login", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ key }),
-  //   });
-  //   if (!res.ok) throw new Error("invalid");
-  //   const { token } = await res.json();
-  //   TODO (sessão): guardar token (sessionStorage ou cookie httpOnly)
+  // Ao abrir a página, confere se já existe um token válido
+  useEffect(() => {
+    const checkSession = async () => {
+      const token = sessionStorage.getItem("admin_token");
+      if (!token) {
+        setChecking(false);
+        return;
+      }
+      try {
+        const res = await fetch("/api/admin/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res.ok) setAuthenticated(true);
+        else sessionStorage.removeItem("admin_token");
+      } catch {
+        // backend fora do ar: cai no login
+      } finally {
+        setChecking(false);
+      }
+    };
+    checkSession();
+  }, []);
+
   const handleLogin = async (key) => {
-    if (key !== DEV_KEY) throw new Error("invalid");
+    const res = await fetch("/api/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key }),
+    });
+    if (!res.ok) throw new Error("invalid");
+    const { token } = await res.json();
+    sessionStorage.setItem("admin_token", token);
     setAuthenticated(true);
   };
 
-  // TODO (sessão): ao montar, checar se já existe token válido
-  //   e chamar setAuthenticated(true) para pular o login.
-
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "#0d0b0b", color: "#e8dcc8" }}>
-      <LoginOverlay open={!authenticated} onSubmit={handleLogin} />
+    <Box
+      sx={{
+        minHeight: "100vh",
+        bgcolor: "#f2f1ef",
+        backgroundImage: `url(${gauze})`,
+        backgroundSize: "cover",
+        backgroundAttachment: "fixed",
+        color: COLORS.navy,
+      }}
+    >
+      <LoginOverlay open={!checking && !authenticated} onSubmit={handleLogin} />
 
-      {/* Só renderiza o conteúdo após autenticar, assim ele nem
-          existe no DOM por baixo do overlay */}
       {authenticated && (
-        <Box sx={{ p: 4 }}>
-          <Typography variant="h4" sx={{ textTransform: "uppercase" }}>
+        <Box sx={{ maxWidth: 1100, mx: "auto", px: 2, py: 5 }}>
+          <Typography
+            variant="h3"
+            sx={{ fontFamily: FONT_DISPLAY, textTransform: "uppercase", mb: 3 }}
+          >
             Painel administrativo
           </Typography>
 
-          {/* TODO: Gerenciamento da Wiki */}
-          {/* TODO: Gerenciamento dos comentários/feedbacks */}
-          {/* TODO: botão de logout */}
+          <Tabs
+            value={tab}
+            onChange={(_, v) => setTab(v)}
+            sx={{
+              mb: 3,
+              "& .MuiTab-root": { color: COLORS.muted, textTransform: "uppercase", letterSpacing: 2, fontFamily: FONT_DISPLAY },
+              "& .Mui-selected": { color: `${COLORS.navy} !important` },
+              "& .MuiTabs-indicator": { bgcolor: COLORS.orange },
+            }}
+          >
+            <Tab value="comments" label="Comentários" />
+            <Tab value="wiki" label="Wiki" />
+          </Tabs>
+
+          {tab === "comments" && <CommentsManager />}
+          {tab === "wiki" && <WikiManager />}
         </Box>
       )}
     </Box>

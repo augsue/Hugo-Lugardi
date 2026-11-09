@@ -1,10 +1,12 @@
 // src/components/ReviewSection.jsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import blackGauze from "../assets/imgs/blackGauze.png";
+
+import { getPublicComments } from "../services/adminApi";
 
 /* ============ PALETA (igual à WikiPage; HEX de 6 dígitos) ============ */
 const PRIMARIA = "#a8454f";
@@ -19,23 +21,29 @@ const CARD_3 = { fundo: "#26301f", texto: "#efe6cf", destaque: "#7fa072" }; // m
 const CARD_4 = { fundo: "#efe4cc", texto: "#33261a", destaque: "#d0683f" }; // pergaminho
 /* ===================================================================== */
 
-// Dados mockados (substituir por props vindas da API futuramente)
-const MOCK_REVIEWS = [
-  { id: 1, comment: "Texto genérico de review para testar o layout.", author: "Autor Um", date: "há 2 dias" },
-  { id: 2, comment: "Outro comentário de exemplo, um pouco mais longo para ver como o card se comporta com mais texto.", author: "Autor Dois", date: "há 1 semana" },
-  { id: 3, comment: "Comentário curto de teste.", author: "Autor Três", date: "há 3 semanas" },
-  { id: 4, comment: "Mais uma review genérica para validar a rotação do carrossel.", author: "Autor Quatro", date: "há 1 mês" },
-  { id: 5, comment: "Review de exemplo número cinco, para checar o loop.", author: "Autor Cinco", date: "há 2 meses" },
-  { id: 6, comment: "Sexta review mockada.", author: "Autor Seis", date: "há 3 meses" },
-  { id: 7, comment: "Sétima review mockada.", author: "Autor sete", date: "há 3 meses" },
-  { id: 8, comment: "Última review mockada, depois o carrossel volta ao início.", author: "Autor Oito", date: "há 3 meses" },
-];
-
 // 4 estilos visuais, atribuídos pela posição do slide (índice % 4)
 const CARD_STYLES = [CARD_1, CARD_2, CARD_3, CARD_4];
 
 const AUTOPLAY_DELAY_MS = 3000;
 const TRANSITION_SPEED_MS = 700;
+
+
+const timeAgo = (iso) => {
+  const s = (Date.now() - new Date(iso)) / 1000;
+  const units = [
+    [60 * 60 * 24 * 365, "ano", "anos"],
+    [60 * 60 * 24 * 30, "mês", "meses"],
+    [60 * 60 * 24 * 7, "semana", "semanas"],
+    [60 * 60 * 24, "dia", "dias"],
+    [60 * 60, "hora", "horas"],
+    [60, "minuto", "minutos"],
+  ];
+  for (const [sec, one, many] of units) {
+    const n = Math.floor(s / sec);
+    if (n >= 1) return `há ${n} ${n === 1 ? one : many}`;
+  }
+  return "agora";
+};
 
 const shuffle = (array) => {
   const copy = [...array];
@@ -79,8 +87,18 @@ function Ornamento({ direcao = "right" }) {
   );
 }
 
-export default function ReviewSection({ reviews = MOCK_REVIEWS }) {
-  const [order] = useState(() => shuffle(reviews));
+export default function ReviewSection() {
+  const [order, setOrder] = useState([])
+
+  useEffect(() => {
+    getPublicComments()
+      .then((data) => setOrder(shuffle(data)))
+      .catch(() => setOrder([])); // falhou? a seção simplesmente não aparece
+  }, []);
+
+  if (order.length === 0) return null;
+
+  
 
   return (
     <Box
@@ -145,12 +163,12 @@ export default function ReviewSection({ reviews = MOCK_REVIEWS }) {
 
         <Swiper
           modules={[Autoplay]}
-          loop
-          autoplay={{
-            delay: AUTOPLAY_DELAY_MS,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
+        loop={order.length > 4}
+        autoplay={{
+          delay: AUTOPLAY_DELAY_MS,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
           speed={TRANSITION_SPEED_MS}
           slidesPerView={1}
           spaceBetween={16}
@@ -224,7 +242,7 @@ export default function ReviewSection({ reviews = MOCK_REVIEWS }) {
                       color: "inherit",
                     }}
                   >
-                    {item.comment}
+                    {item.text}
                   </Typography>
 
                   {/* Rodapé: autor e data */}
@@ -271,7 +289,7 @@ export default function ReviewSection({ reviews = MOCK_REVIEWS }) {
                           color: "inherit",
                         }}
                       >
-                        {item.author}
+                        {item.name}
                       </Typography>
                       <Typography
                         sx={{
@@ -282,7 +300,7 @@ export default function ReviewSection({ reviews = MOCK_REVIEWS }) {
                           opacity: 0.7,
                         }}
                       >
-                        {item.date}
+                        {timeAgo(item.createdAt)}
                       </Typography>
                     </Box>
                   </Box>
