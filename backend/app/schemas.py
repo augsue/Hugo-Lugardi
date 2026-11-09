@@ -61,3 +61,15 @@ class WikiPageOut(BaseModel):
     image_url: str
     fixed: bool
     created_at: datetime | None
+
+class WikiPublicOut(BaseModel):
+    id: int
+    slug: str
+    title: str
+    subtitle: str | None = None
+    category: str
+    image_url: str | None = None
+    model_config = ConfigDict(from_attributes=True)
+
+class WikiDetailOut(WikiPublicOut):
+    content: str

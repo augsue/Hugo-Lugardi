@@ -248,7 +248,7 @@ export default function AuthorsSection() {
             mt: 1,
           }}
         >
-          As mentes por trás da Ordem Magoi.
+          As mentes por trás de Hugo Lugardi e a Ordem Magoi.
         </Typography>
       </Box>
 

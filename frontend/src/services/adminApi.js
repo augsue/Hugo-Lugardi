@@ -118,3 +118,35 @@ export async function uploadImage(file) {
 export async function deleteComment(id) {
   await authFetch(`/api/admin/comments/${id}`, { method: "DELETE" });
 }
+
+export async function getPublicComments() {
+  const res = await fetch("/api/feedbacks/fixed"); // rota pública
+  if (!res.ok) throw new Error("Erro ao carregar comentários");
+  const data = await res.json();
+  return data.map((c) => ({
+    id: c.id,
+    name: c.name,
+    text: c.message,
+    createdAt: c.created_at,
+  }));
+}
+
+export async function getAllWikiPages() {
+  const res = await fetch("/api/wiki");
+  if (!res.ok) throw new Error("Erro ao carregar wiki");
+  return (await res.json()).map(wikiFromBack);
+}
+
+export async function getFixedWikiPages() {
+  const res = await fetch("/api/wiki/fixed"); // rota pública
+  if (!res.ok) throw new Error("Erro ao carregar wiki");
+  const data = await res.json();
+  return data.map(wikiFromBack);
+}
+
+export async function getWikiPage(slug) {
+  const res = await fetch(`/api/wiki/${encodeURIComponent(slug)}`);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error("Erro ao carregar página");
+  return wikiFromBack(await res.json());
+}

@@ -1,5 +1,4 @@
 // src/pages/WikiPage.jsx
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -15,8 +14,11 @@ import PublicIcon from "@mui/icons-material/Public";
 import PersonIcon from "@mui/icons-material/Person";
 import Header from "../components/Header";
 import Footer from "../components/Footer.jsx";
-import HugoLugardi from "../assets/imgs/HugoLugardi.jpg"; // mantenha o SEU import do fundo
-import book from "../assets/imgs/library.png"
+import book from "../assets/imgs/Bookshelf.jpg";
+
+
+import { useEffect, useState } from "react";
+import { getAllWikiPages } from "../services/adminApi";
 
 const FONTE_TITULO = "inherit";
 const FONTE_TEXTO = "'Playfair Display', serif";
@@ -53,16 +55,6 @@ const abas = [
 
 const corDe = Object.fromEntries(abas.map((a) => [a.id, a.cor]));
 const iconeDe = Object.fromEntries(abas.map((a) => [a.id, a.Icone]));
-
-// Placeholders (trocar pelos dados da API depois)
-const itens = ["poderes", "ambientacao", "personagens"].flatMap((categoria) =>
-  Array.from({ length: 6 }).map((_, i) => ({
-    id: `${categoria}-${i}`,
-    slug: `${categoria}-${i + 1}`,
-    nome: `Item ${i + 1}`,
-    categoria,
-  })),
-);
 
 const fadeIn = {
   "@keyframes fadeIn": {
@@ -161,10 +153,10 @@ function Aba({ aba, ativa, onClick }) {
   );
 }
 
-function CardWiki({ nome, slug, categoria }) {
+function CardWiki({ nome, slug, categoria, imageUrl }) {
   const navigate = useNavigate();
-  const cor = corDe[categoria];
-  const Icone = iconeDe[categoria];
+  const cor = corDe[categoria] ?? CAT_TUDO;
+  const Icone = iconeDe[categoria] ?? AppsIcon;
 
   return (
     <ButtonBase
@@ -188,10 +180,10 @@ function CardWiki({ nome, slug, categoria }) {
           opacity: 0.4,
           transform: "scale(1.12) rotate(-4deg)",
         },
+        "&:hover .card-imagem": { transform: "scale(1.06)" },
         "&:hover .card-brilho": { transform: "translateX(260%) skewX(-20deg)" },
       }}
     >
-      {/* Área da imagem (placeholder) */}
       <Box
         sx={{
           position: "relative",
@@ -203,6 +195,25 @@ function CardWiki({ nome, slug, categoria }) {
           justifyContent: "center",
         }}
       >
+        {/* Imagem da página (se houver) */}
+        {imageUrl && (
+          <Box
+            component="img"
+            className="card-imagem"
+            src={imageUrl}
+            alt={nome}
+            loading="lazy"
+            sx={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              transition: "transform .5s",
+            }}
+          />
+        )}
+
         {/* Moldura interna */}
         <Box
           sx={{
@@ -215,15 +226,18 @@ function CardWiki({ nome, slug, categoria }) {
           }}
         />
 
-        <Icone
-          className="card-icone"
-          sx={{
-            fontSize: 60,
-            color: cor,
-            opacity: 0.2,
-            transition: "all .35s",
-          }}
-        />
+        {/* Ícone central: só aparece sem imagem */}
+        {!imageUrl && (
+          <Icone
+            className="card-icone"
+            sx={{
+              fontSize: 60,
+              color: cor,
+              opacity: 0.2,
+              transition: "all .35s",
+            }}
+          />
+        )}
 
         {/* Brilho no hover */}
         <Box
@@ -257,7 +271,7 @@ function CardWiki({ nome, slug, categoria }) {
           }}
         />
 
-        {/* Nome na frente da imagem */}
+        {/* Nome */}
         <Box
           sx={{
             position: "absolute",
@@ -321,17 +335,38 @@ function CardWiki({ nome, slug, categoria }) {
     </ButtonBase>
   );
 }
+
 export default function WikiPage() {
   const [abaAtiva, setAbaAtiva] = useState("tudo");
+  const [itens, setItens] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getAllWikiPages()
+      .then((pages) =>
+        setItens(
+          pages.map((p) => ({
+            id: p.id,
+            slug: p.slug,
+            nome: p.title,
+            categoria: p.category,
+            imageUrl: p.imageUrl,
+          })),
+        ),
+      )
+      .catch((err) => console.error("Erro ao carregar wiki:", err))
+      .finally(() => setLoading(false));
+  }, []);
 
   const abaAtual = abas.find((a) => a.id === abaAtiva);
+
   const filtrados =
     abaAtiva === "tudo" ? itens : itens.filter((i) => i.categoria === abaAtiva);
 
   return (
     <Box
       sx={{
-        backgroundImage: `linear-gradient(180deg, ${FUNDO}30 0%, ${FUNDO}cc 1000%), url(${book})`,
+        backgroundImage: `linear-gradient(180deg, ${FUNDO}59 0%, ${FUNDO}cc 100%), url(${book})`, 
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
@@ -341,7 +376,7 @@ export default function WikiPage() {
     >
       <Header />
 
-      <Container maxWidth="lg" sx={{ pt: 18, pb: 33 }}>
+      <Container maxWidth="lg" sx={{ pt: 14, pb: 40 }}>
         {/* Painel principal */}
         <Box
           sx={{
@@ -490,7 +525,7 @@ export default function WikiPage() {
                   xs: "repeat(2, 1fr)",
                   sm: "repeat(3, 1fr)",
                   md: "repeat(4, 1fr)",
-                  lg: "repeat(5, 1fr)",
+                  lg: "repeat(4, 1fr)",
                 },
                 animation: "fadeIn .4s ease",
               }}
