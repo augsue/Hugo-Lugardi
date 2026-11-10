@@ -1,7 +1,9 @@
 // src/components/HeroSection.jsx
 import bookCover from "../assets/imgs/book-cover.jpeg";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 import book from "../assets/imgs/Bookshelf.jpg";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
+import { FaAmazon } from "react-icons/fa";
 
 /* ============ PALETA (igual à WikiPage; HEX de 6 dígitos) ============ */
 const PRIMARIA = "#a8454f";
@@ -12,8 +14,8 @@ const FUNDO = "#120e0c";
 const textoBase = {
   fontFamily: "Play Fair",
   color: TEXTO,
-  fontSize: { xs: "15px", md: "19px" },
-  lineHeight: 1.8,
+  fontSize: { xs: "15px", md: "20px" },
+  lineHeight: 1.7,
   mb: 2,
 };
 
@@ -40,7 +42,7 @@ export default function HeroSection() {
           position: "relative",
           width: "100%",
           maxWidth: { xs: "100%", md: "1300px" },
-          minHeight: { xs: "100px", md: "780px" },
+          minHeight: { xs: "100px", md: "auto" },
           mx: "auto",
           boxSizing: "border-box",
           p: { xs: "28px 20px", md: "48px 56px" },
@@ -86,9 +88,9 @@ export default function HeroSection() {
             sx={{
               fontFamily: "Perandory",
               fontWeight: 400,
-              fontSize: { xs: "26px", md: "46px" },
+              fontSize: { xs: "22px", md: "46px" },
               lineHeight: 1.15,
-              letterSpacing: { xs: 1, md: 3 },
+              letterSpacing: { xs: 0.5, md: 3 },
               textTransform: "uppercase",
               pb: 1.5,
               textShadow: `0 0 24px ${PRIMARIA}88, 0 2px 6px rgba(0,0,0,.8)`,
@@ -98,7 +100,14 @@ export default function HeroSection() {
           </Typography>
 
           {/* Linha com losango */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              width: "100%",
+            }}
+          >
             <Box
               sx={{
                 width: 7,
@@ -110,7 +119,9 @@ export default function HeroSection() {
             />
             <Box
               sx={{
-                flex: 1,
+                flex: "1 1 auto",
+                minWidth: 0,
+                width: "100%",
                 height: "1px",
                 background: `linear-gradient(90deg, ${PRIMARIA}, ${PRIMARIA}00)`,
               }}
@@ -124,16 +135,17 @@ export default function HeroSection() {
           <Box
             sx={{
               position: "relative",
-              float: "left",
-              width: { xs: "120px", md: "320px" },
-              mr: { xs: 2, md: 4 },
-              mb: { xs: 1, md: 2 },
+              float: { xs: "none", md: "left" },
+              display: "block",
+              width: { xs: "75%", md: "320px" },
+              mx: { xs: "auto", md: 0 },
+              mr: { xs: "auto", md: 4 },
+              mb: { xs: 3, md: 2 },
               borderRadius: "3px",
-              overflow: "hidden", // mantém o brilho dentro da capa
+              overflow: "hidden",
               border: `1px solid ${PRIMARIA}`,
               boxShadow: `0 14px 34px rgba(0,0,0,.7), 0 0 28px ${PRIMARIA}40`,
               transition: "transform .4s ease, box-shadow .4s ease",
-              // passa o brilho e descansa o resto do ciclo
               "@keyframes brilhoCapa": {
                 "0%": { transform: "translateX(0) skewX(-20deg)" },
                 "110%": { transform: "translateX(450%) skewX(-20deg)" },
@@ -180,23 +192,23 @@ export default function HeroSection() {
             sx={{
               fontFamily: "Play Fair",
               color: TEXTO,
-              fontSize: { xs: "15px", md: "19px" },
-              lineHeight: 1.8,
+              fontSize: { xs: "15px", md: "20px" },
+              lineHeight: 1.7,
               mb: 2,
               "&::first-letter": {
                 fontFamily: "Perandory",
                 color: PRIMARIA,
                 filter: "brightness(1.35)",
-                fontSize: { xs: "2.7em", md: "2.3em" },
-                float: "left",
-                mt: { xs: "0.22em", md: "0.1em" },
-                pr: 1,
+                fontSize: { xs: "2em", md: "2.3em" },
+                float: { xs: "none", md: "left" },
+                mt: { xs: 0, md: 0 },
+                pr: { xs: 0, md: 0 },
               },
             }}
           >
             Hugo Lugardi é um jovem comum de Brasília, com uma vida simples e
-            sonhos ainda indefinidos. Não imagina que,
-            em breve, tudo será diferente.
+            sonhos ainda indefinidos. Não imagina que, em breve, tudo será
+            diferente.
           </Typography>
 
           <Typography sx={textoBase}>
@@ -207,15 +219,8 @@ export default function HeroSection() {
           </Typography>
 
           <Typography sx={textoBase}>
-            Hugo é introduzido à Ordem Magoi, uma
-            ordem milenar fundada pelos três reis magos. Entre livros antigos,
-            símbolos esquecidos e histórias transmitidas de geração em geração,
-            ele começa a compreender a grandeza daquilo que o cerca.
-          </Typography>
-
-          <Typography sx={textoBase}>
-            Hugo vai aprender que o propósito de cada um começa com um passo de fé.
-            Haverá momentos de dúvida, de medo e de coragem, e é justamente
+            Hugo vai aprender que o propósito de cada um começa com um passo de
+            fé. Haverá momentos de dúvida, de medo e de coragem, e é justamente
             nesses momentos que ele descobrirá a força que sempre esteve dentro
             de si.
           </Typography>
@@ -223,6 +228,66 @@ export default function HeroSection() {
           <Typography sx={{ ...textoBase, fontStyle: "italic", mb: 0 }}>
             Uma jornada de coragem, mistério e fé.
           </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "row", md: "row" },
+              flexWrap: "nowrap",
+              gap: { xs: 1, md: 2 },
+              mt: 4,
+              ml: { xs: 0, md: "336px" },
+              clear: "none",
+            }}
+          >
+            <Button
+              component="a"
+              href="https://www.amazon.com.br/dp/B0FKHNXFSD"
+              target="_blank"
+              rel="noopener noreferrer"
+              startIcon={<FaAmazon size={20} />}
+              sx={{
+                flex: { xs: 1, md: "0 0 auto" },
+                fontFamily: "Play Fair",
+                color: TEXTO,
+                borderColor: PRIMARIA,
+                borderRadius: "3px",
+                px: { xs: 1, md: 3 },
+                py: 1.2,
+                fontSize: { xs: "12px", md: "15px" },
+                whiteSpace: "nowrap",
+                textTransform: "none",
+                "&:hover": { borderColor: TEXTO, bgcolor: `${PRIMARIA}33` },
+              }}
+              variant="outlined"
+            >
+              Comprar na Amazon
+            </Button>
+
+            <Button
+              component="a"
+              href="https://loja.uiclap.com/titulo/ua108108/"
+              target="_blank"
+              rel="noopener noreferrer"
+              startIcon={<MenuBookIcon />}
+              sx={{
+                flex: { xs: 1, md: "0 0 auto" },
+                fontFamily: "Play Fair",
+                color: TEXTO,
+                borderColor: PRIMARIA,
+                borderRadius: "3px",
+                px: { xs: 1, md: 3 },
+                py: 1.2,
+                fontSize: { xs: "12px", md: "15px" },
+                whiteSpace: "nowrap",
+                textTransform: "none",
+                "&:hover": { borderColor: TEXTO, bgcolor: `${PRIMARIA}33` },
+              }}
+              variant="outlined"
+            >
+              Comprar na Uiclap
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Box>

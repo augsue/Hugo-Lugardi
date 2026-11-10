@@ -104,7 +104,7 @@ export default function WikiSection() {
         }}
       >
         {/* Título da seção */}
-        <Box sx={{ textAlign: "center", mt: 1, mb: { xs: 3, md: 5 } }}>
+        <Box sx={{ textAlign: "center", mt: 1, mb: { xs: 2, md: 5 } }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <Ornamento direcao="right" />
             <Typography
@@ -153,23 +153,30 @@ export default function WikiSection() {
       <Button
         href="/wiki"
         sx={{
-          position: "relative",
-          mt: { xs: 3, md: 4 },
-          px: 5,
+          position: { xs: "absolute", md: "relative" },
+          bottom: { xs: "36px", md: "10px" },
+          left: {xs: "50%", md: "auto"},
+          transform: { xs: "translateX(-50%)", md: "none" },
+          mt: { xs: 0, md: 4 },
           py: 1.2,
-          minWidth: 300,
+          minWidth: { xs: 240, md: 300 },
           borderRadius: "4px",
           color: TEXTO,
           fontFamily: "Perandory",
-          fontSize: { xs: "22px", md: "26px" },
-          letterSpacing: 3,
+          whiteSpace: "nowrap",
+          px: { xs: 2, md: 5 },
+          letterSpacing: { xs: 1.5, md: 3 },
+          fontSize: { xs: "16px", md: "26px" },
           bgcolor: `${FUNDO}cc`,
           border: `1px solid ${PRIMARIA}`,
           boxShadow: `inset 0 0 0 3px ${FUNDO}, inset 0 0 0 4px ${PRIMARIA}66, 0 0 22px ${PRIMARIA}33`,
           transition: "all .3s",
           "&:hover": {
             bgcolor: PRIMARIA,
-            transform: "translateY(-3px)",
+            transform: {
+              xs: "translateX(-50%) translateY(-3px)",
+              md: "translateY(-3px)",
+            },
             boxShadow: `inset 0 0 0 3px ${PRIMARIA}, inset 0 0 0 4px ${TEXTO}66, 0 10px 28px ${PRIMARIA}66`,
           },
         }}

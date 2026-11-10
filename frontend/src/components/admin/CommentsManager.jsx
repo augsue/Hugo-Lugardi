@@ -7,6 +7,7 @@ import {
   DialogContent,
   Stack,
   Switch,
+  TextField,
   Typography,
   CircularProgress,
 } from "@mui/material";
@@ -24,7 +25,9 @@ import {
   getComments,
   setCommentPinned,
   deleteComment,
+  updateComment,
 } from "../../services/adminApi";
+import { useToast } from "../Toast";
 
 export default function CommentsManager() {
   const [comments, setComments] = useState([]);
@@ -33,6 +36,11 @@ export default function CommentsManager() {
   const [onlyPinned, setOnlyPinned] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [deleting, setDeleting] = useState(false);
+  const [editTarget, setEditTarget] = useState(null);
+  const [editText, setEditText] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  const notify = useToast();
 
   useEffect(() => {
     getComments()
@@ -43,12 +51,12 @@ export default function CommentsManager() {
 
   const handleTogglePin = async (comment) => {
     const pinned = !comment.pinned;
-    // Atualiza na tela na hora e desfaz se o back falhar
     setComments((prev) =>
       prev.map((c) => (c.id === comment.id ? { ...c, pinned } : c)),
     );
     try {
       await setCommentPinned(comment.id, pinned);
+      notify(pinned ? "Comentário fixado!" : "Comentário desafixado!");
     } catch {
       setComments((prev) =>
         prev.map((c) => (c.id === comment.id ? { ...c, pinned: !pinned } : c)),
@@ -62,14 +70,35 @@ export default function CommentsManager() {
     setError("");
     try {
       await deleteComment(deleteTarget.id);
-      // Só tira da tela depois que o back confirmou
       setComments((prev) => prev.filter((c) => c.id !== deleteTarget.id));
       setDeleteTarget(null);
+      notify("Comentário excluído com sucesso!");
     } catch {
       setError("Não foi possível excluir o comentário.");
       setDeleteTarget(null);
     } finally {
       setDeleting(false);
+    }
+  };
+
+  const handleEdit = async () => {
+    const text = editText.trim();
+    if (!text) return;
+    setSaving(true);
+    setError("");
+    try {
+      const updated = await updateComment(editTarget.id, text);
+      setComments((prev) =>
+        prev.map((c) =>
+          c.id === editTarget.id ? { ...c, text: updated.text } : c,
+        ),
+      );
+      setEditTarget(null);
+      notify("Comentário editado com sucesso!");
+    } catch {
+      setError("Não foi possível editar o comentário.");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -214,6 +243,16 @@ export default function CommentsManager() {
               </Box>
               <Button
                 size="small"
+                sx={{ ...outlineBtnSx, px: 2 }}
+                onClick={() => {
+                  setEditTarget(c);
+                  setEditText(c.text);
+                }}
+              >
+                Editar
+              </Button>
+              <Button
+                size="small"
                 sx={{ ...dangerBtnSx, px: 2 }}
                 onClick={() => setDeleteTarget(c)}
               >
@@ -223,6 +262,45 @@ export default function CommentsManager() {
           </Box>
         ))}
       </Stack>
+
+      {/* Edição */}
+      <Dialog
+        open={!!editTarget}
+        onClose={saving ? undefined : () => setEditTarget(null)}
+        fullWidth
+        maxWidth="sm"
+        slotProps={{ paper: { sx: dialogPaperSx } }}
+      >
+        <Box sx={{ pt: 4, px: 4 }}>
+          <Heading title="Editar comentário" />
+        </Box>
+        <DialogContent>
+          <TextField
+            multiline
+            minRows={4}
+            fullWidth
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+            slotProps={{ htmlInput: { maxLength: 2000 } }}
+          />
+        </DialogContent>
+        <DialogActions sx={{ p: 3, justifyContent: "center", gap: 2 }}>
+          <Button
+            sx={outlineBtnSx}
+            onClick={() => setEditTarget(null)}
+            disabled={saving}
+          >
+            Cancelar
+          </Button>
+          <Button
+            sx={solidBtnSx}
+            onClick={handleEdit}
+            disabled={saving || !editText.trim()}
+          >
+            {saving ? "Salvando..." : "Salvar"}
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       {/* Confirmação antes de excluir */}
       <Dialog

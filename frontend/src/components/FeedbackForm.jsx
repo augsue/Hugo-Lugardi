@@ -3,9 +3,11 @@ import penandquill from "../assets/imgs/gauze.png";
 import { Box, TextField, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { API_URL } from "../api";
+import { useToast } from "../components/Toast";
 
 function FeedbackForm() {
   const theme = useTheme();
+  const notify = useToast();
   const [status, setStatus] = useState(""); // "", "enviando", "ok", "erro"
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -28,6 +30,7 @@ function FeedbackForm() {
       setEmail("");
       setComment("");
       setStatus("ok");
+      notify("Obrigado! Seu comentário foi enviado.");
     } catch (err) {
       console.error(err);
       setStatus("erro");
@@ -170,17 +173,6 @@ function FeedbackForm() {
               Enviar
             </Button>
           </Box>
-
-          {status === "ok" && (
-            <Typography sx={{ mt: 2, color: "#2f5d2f", fontWeight: 600 }}>
-              Comentário enviado!
-            </Typography>
-          )}
-          {status === "erro" && (
-            <Typography sx={{ mt: 2, color: "#a63c06", fontWeight: 600 }}>
-              Não foi possível enviar. Tente de novo.
-            </Typography>
-          )}
         </form>
       </Box>
     </Box>

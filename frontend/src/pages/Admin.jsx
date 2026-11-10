@@ -61,21 +61,92 @@ export default function AdminPage() {
 
       {authenticated && (
         <Box sx={{ maxWidth: 1100, mx: "auto", px: 2, py: 5 }}>
-          <Typography
-            variant="h3"
-            sx={{ fontFamily: FONT_DISPLAY, textTransform: "uppercase", mb: 3 }}
-          >
-            Painel administrativo
-          </Typography>
+          {/* Título */}
+          <Box sx={{ textAlign: "center", mb: 4 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 2,
+                mb: 1,
+              }}
+            >
+              <Box
+                sx={{
+                  flex: 1,
+                  maxWidth: 120,
+                  height: "1px",
+                  background: `linear-gradient(90deg, transparent, ${COLORS.orange})`,
+                }}
+              />
+              <Box
+                sx={{
+                  width: 8,
+                  height: 8,
+                  bgcolor: COLORS.orange,
+                  transform: "rotate(45deg)",
+                }}
+              />
+              <Box
+                sx={{
+                  flex: 1,
+                  maxWidth: 120,
+                  height: "1px",
+                  background: `linear-gradient(270deg, transparent, ${COLORS.orange})`,
+                }}
+              />
+            </Box>
+            <Typography
+              component="h1"
+              sx={{
+                fontFamily: FONT_DISPLAY,
+                textTransform: "uppercase",
+                letterSpacing: { xs: 3, md: 6 },
+                fontSize: { xs: "28px", md: "42px" },
+                color: COLORS.navy,
+                textShadow:
+                  "0 2px 0 rgba(255,255,255,.6), 0 4px 12px rgba(0,0,0,.25)",
+              }}
+            >
+              Painel administrativo
+            </Typography>
+          </Box>
 
+          {/* Abas */}
           <Tabs
             value={tab}
             onChange={(_, v) => setTab(v)}
+            variant="fullWidth"
             sx={{
               mb: 3,
-              "& .MuiTab-root": { color: COLORS.muted, textTransform: "uppercase", letterSpacing: 2, fontFamily: FONT_DISPLAY },
-              "& .Mui-selected": { color: `${COLORS.navy} !important` },
-              "& .MuiTabs-indicator": { bgcolor: COLORS.orange },
+              borderBottom: `1px solid ${COLORS.navy}33`,
+              minHeight: 52,
+              "& .MuiTabs-flexContainer": { width: "100%" },
+              "& .MuiTab-root": {
+                flex: 1,
+                width: "50%",
+                minHeight: 52,
+                color: COLORS.muted,
+                textTransform: "uppercase",
+                letterSpacing: 3,
+                fontFamily: FONT_DISPLAY,
+                fontSize: "15px",
+                transition: "color .3s, background .3s",
+                "&:hover": {
+                  color: COLORS.navy,
+                  bgcolor: `${COLORS.orange}14`,
+                },
+              },
+              "& .Mui-selected": {
+                color: `${COLORS.navy} !important`,
+                fontWeight: 600,
+              },
+              "& .MuiTabs-indicator": {
+                height: 3,
+                bgcolor: COLORS.orange,
+                boxShadow: `0 0 12px ${COLORS.orange}88`,
+              },
             }}
           >
             <Tab value="comments" label="Comentários" />
