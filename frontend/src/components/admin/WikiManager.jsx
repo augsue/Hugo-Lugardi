@@ -31,6 +31,7 @@ import {
   uploadImage,
   getWikiCategories,
 } from "../../services/adminApi";
+import { useToast } from "../Toast";
 
 // Botãozinho claro, para ficar sobre a imagem escura
 const tileBtnSx = {
@@ -54,11 +55,13 @@ export default function WikiManager() {
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [categories, setCategories] = useState([]);
 
+  const notify = useToast();
+
   useEffect(() => {
     getWikiCategories()
       .then(setCategories)
       .catch(() => setError("Não foi possível carregar as categorias."));
-    getWikiPages() // TODO (back): conectar em adminApi.getWikiPages
+    getWikiPages()
       .then(setPages)
       .catch(() => setError("Não foi possível carregar a wiki."))
       .finally(() => setLoading(false));
@@ -66,27 +69,28 @@ export default function WikiManager() {
 
   // data: { title, subtitle, text, imageFile?, imageUrl? }
   const handleSave = async ({ imageFile, ...data }) => {
-    // TODO (back): o upload da imagem acontece antes de salvar a página
     if (imageFile) data.imageUrl = await uploadImage(imageFile);
 
     if (formState.page) {
-      const updated = await updateWikiPage(formState.page.id, data); // TODO (back)
+      const updated = await updateWikiPage(formState.page.id, data);
       setPages((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
+      notify("Página atualizada com sucesso!");
     } else {
-      const created = await createWikiPage(data); // TODO (back)
+      const created = await createWikiPage(data);
       setPages((prev) => [...prev, created]);
+      notify("Página criada com sucesso!");
     }
     setFormState({ open: false, page: null });
   };
 
   const handleTogglePin = async (page) => {
     const pinned = !page.pinned;
-    // Atualiza na tela na hora e desfaz se o back falhar
     setPages((prev) =>
       prev.map((p) => (p.id === page.id ? { ...p, pinned } : p)),
     );
     try {
-      await setWikiPagePinned(page.id, pinned); // TODO (back): conectar em adminApi.setWikiPagePinned
+      await setWikiPagePinned(page.id, pinned);
+      notify(pinned ? "Página fixada!" : "Página desafixada!");
     } catch {
       setPages((prev) =>
         prev.map((p) => (p.id === page.id ? { ...p, pinned: !pinned } : p)),
@@ -97,8 +101,9 @@ export default function WikiManager() {
 
   const handleDelete = async () => {
     try {
-      await deleteWikiPage(deleteTarget.id); // TODO (back)
+      await deleteWikiPage(deleteTarget.id);
       setPages((prev) => prev.filter((p) => p.id !== deleteTarget.id));
+      notify("Página excluída com sucesso!");
     } catch {
       setError("Não foi possível excluir a página.");
     }

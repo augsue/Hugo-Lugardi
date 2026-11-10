@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models import Feedback, WikiPage
 from app.schemas import (               
-    FeedbackAdminOut, FeedbackFixedIn, WikiPageIn, WikiFixedIn, WikiPageOut,
+    FeedbackAdminOut, FeedbackEditIn, FeedbackFixedIn, WikiPageIn, WikiFixedIn, WikiPageOut,
 )
 from app.utils import unique_slug
 
@@ -181,3 +181,13 @@ def delete_comment(comment_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Comentário não encontrado")
     db.delete(comment)
     db.commit()
+
+@router.put("/comments/{comment_id}", response_model=FeedbackAdminOut, dependencies=[Depends(require_admin)])
+def edit_comment(comment_id: int, body: FeedbackEditIn, db: Session = Depends(get_db)):
+    comment = db.get(Feedback, comment_id)
+    if comment is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Comentário não encontrado")
+    comment.message = body.text.strip()
+    db.commit()
+    db.refresh(comment)
+    return comment

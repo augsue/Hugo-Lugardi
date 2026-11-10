@@ -73,3 +73,6 @@ class WikiPublicOut(BaseModel):
 
 class WikiDetailOut(WikiPublicOut):
     content: str
+
+class FeedbackEditIn(BaseModel):
+    text: str = Field(min_length=1, max_length=2000)

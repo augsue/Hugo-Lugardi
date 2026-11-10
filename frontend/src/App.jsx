@@ -5,13 +5,14 @@ import { Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Wiki from "./pages/Wiki";
 import FullWiki from "./pages/FullWiki";
-import Admin from "./pages/Admin"
+import Admin from "./pages/Admin";
 import { LoaderProvider } from "./context/LoaderContext";
 
 import carlBrown from "./assets/fonts/CarlBrown.woff2";
 import burguesScript from "./assets/fonts/Burgues Script Regular.woff2";
 import perandory from "./assets/fonts/perandory-regular.woff2";
 import playFair from "./assets/fonts/PlayfairDisplay-Regular.ttf";
+import { ToastProvider } from "./components/Toast";
 
 const fontStyles = (
   <GlobalStyles
@@ -51,18 +52,20 @@ const fontStyles = (
 export default function App() {
   return (
     <BrowserRouter>
-      <LoaderProvider>
+      <ToastProvider>
         <ThemeProvider theme={theme}>
-          {fontStyles}
-          <CssBaseline />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/Wiki/:slug" element={<Wiki />} />
-            <Route path="/Wiki" element={<FullWiki />} />
-            <Route path="/Admin" element={<Admin />} />
-          </Routes>
+          <LoaderProvider>
+            {fontStyles}
+            <CssBaseline />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/Wiki/:slug" element={<Wiki />} />
+              <Route path="/Wiki" element={<FullWiki />} />
+              <Route path="/Admin" element={<Admin />} />
+            </Routes>
+          </LoaderProvider>
         </ThemeProvider>
-      </LoaderProvider>
+      </ToastProvider>
     </BrowserRouter>
   );
 }

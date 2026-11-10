@@ -150,3 +150,11 @@ export async function getWikiPage(slug) {
   if (!res.ok) throw new Error("Erro ao carregar página");
   return wikiFromBack(await res.json());
 }
+
+export async function updateComment(id, text) {
+  const data = await authFetch(`/api/admin/comments/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({ text }),
+  });
+  return { ...data, text: data.message ?? data.text };
+}

@@ -8,7 +8,7 @@ const TEXTO_SUAVE = "#b9ab8e";
 // const FUNDO = "#120e0c";
 /* ===================================================================== */
 
-const NAV_HEIGHT = { xs: "70px", md: "55px" };
+const NAV_HEIGHT = { xs: "80px", md: "62px" };
 
 export default function Header() {
   const navItems = ["Home", "Autores", "Wiki", "Feedback"];
@@ -32,21 +32,32 @@ export default function Header() {
         disableGutters
         sx={{
           height: NAV_HEIGHT,
-          minHeight: { xs: "76px !important", md: "55px !important" },
+          minHeight: { xs: "98px !important", md: "55px !important" },
           flexDirection: { xs: "column", md: "row" },
           justifyContent: { xs: "center", md: "space-between" },
-          gap: { xs: "0px", md: 0 },
           mx: { xs: "8px", md: "30px" },
+          py: { xs: "10px", md: 0 },
         }}
       >
         {/* Logo */}
-        <Box>
+        <Box
+          sx={{
+            position: { xs: "static", md: "absolute" },
+            left: "50%",
+            top: "50%",
+            transform: { xs: "none", md: "translate(-50%, -50%)" },
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            pointerEvents: "none",
+          }}
+        >
           <Typography
             sx={{
               color: TEXTO,
               fontSize: { xs: "26px", md: "33px" },
               fontFamily: "Perandory",
-              lineHeight: { xs: 0.9, md: 0.7 },
+              lineHeight: { xs: 1, md: 0.7 },
               textAlign: "center",
               letterSpacing: "3px",
               textShadow: `0 0 18px ${PRIMARIA}66`,
@@ -61,7 +72,7 @@ export default function Header() {
               fontFamily: "Burgues",
               lineHeight: 0.8,
               textAlign: "center",
-              mt: { xs: "-4px", md: 0 },
+              mt: { xs: "-1px", md: 0 },
             }}
           >
             E a Ordem Magoi
@@ -69,7 +80,15 @@ export default function Header() {
         </Box>
 
         {/* Links */}
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: { xs: "center", md: "flex-end" },
+            alignItems: "center",
+            ml: { xs: 0, md: "auto" },
+            position: { xs: "static", md: "relative" },
+          }}
+        >
           {navItems.map((item) => (
             <Button
               key={item}
@@ -81,12 +100,15 @@ export default function Header() {
                 fontFamily: "Perandory",
                 fontWeight: 500,
                 letterSpacing: "1px",
-                minHeight: { xs: "28px", md: "auto" },
                 minWidth: 0,
                 px: { xs: "10px", md: "16px" },
-                py: { xs: 0, md: "6px" },
                 position: "relative",
                 transition: "color .3s, text-shadow .3s",
+                display: "inline-flex",
+                alignItems: "center",
+                lineHeight: 1.1,
+                minHeight: "auto",
+                py: { xs: "2px 2px 6px", md: "6px" },
                 "&:hover": {
                   backgroundColor: "transparent",
                   color: "#fff",
@@ -96,7 +118,7 @@ export default function Header() {
                 "&::after": {
                   content: '""',
                   position: "absolute",
-                  bottom: "2px",
+                  bottom: { xs: "4px", md: "2px" },
                   left: "50%",
                   width: "0%",
                   height: "1.5px",
@@ -109,7 +131,7 @@ export default function Header() {
                 "&::before": {
                   content: '""',
                   position: "absolute",
-                  bottom: "-1px",
+                  bottom: "1.5px",
                   left: "50%",
                   width: 6,
                   height: 6,
