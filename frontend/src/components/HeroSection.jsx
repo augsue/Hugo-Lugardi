@@ -7,6 +7,7 @@ import { FaAmazon } from "react-icons/fa";
 
 /* ============ PALETA (igual à WikiPage; HEX de 6 dígitos) ============ */
 const PRIMARIA = "#a8454f";
+const TEXTO_SUAVE = "#b9ab8e";
 const TEXTO = "#efe4cc";
 const FUNDO = "#120e0c";
 /* ===================================================================== */
@@ -165,7 +166,7 @@ export default function HeroSection() {
               sx={{
                 position: "absolute",
                 inset: 6,
-                border: `1px solid ${TEXTO}40`,
+                border: `1px solid ${PRIMARIA}60`,
                 borderRadius: "2px",
                 pointerEvents: "none",
               }}

@@ -118,7 +118,7 @@ export default function Header() {
                 "&::after": {
                   content: '""',
                   position: "absolute",
-                  bottom: { xs: "4px", md: "2px" },
+                  bottom: { xs: "4px", md: "3px" },
                   left: "50%",
                   width: "0%",
                   height: "1.5px",
